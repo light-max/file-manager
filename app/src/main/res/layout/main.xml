@@ -1,11 +1,50 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+	<FrameLayout
+		android:layout_height="match_parent"
+		android:layout_width="match_parent">
 
-</LinearLayout>
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="vertical">
+
+			<jysh.mf.Widget.AppTitile
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/main_title"/>
+
+			<android.support.v4.view.ViewPager
+				android:layout_height="0dp"
+				android:layout_width="match_parent"
+				android:layout_weight="1.0"
+				android:id="@+id/main_viewpager"/>
+
+		</LinearLayout>
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@android:drawable/ic_menu_close_clear_cancel"
+			android:layout_gravity="bottom|end"
+			android:layout_margin="16dp"
+			android:id="@+id/main_add"/>
+
+	</FrameLayout>
+
+	<LinearLayout
+		android:background="#8F8C8B"
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:layout_gravity="start">
+
+	</LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
+
