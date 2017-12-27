@@ -4,6 +4,8 @@ import android.widget.*;
 import android.app.*;
 import jysh.mf.R;
 import jysh.mf.Util.*;
+import jysh.mf.Dialog.*;
+import java.io.*;
 
 public class AddFileViewButton implements View.OnClickListener
 {
@@ -14,7 +16,7 @@ public class AddFileViewButton implements View.OnClickListener
 		button.setOnClickListener(this);
 	}
 	
-/*	public void setPosition(int position)
+	public void setPosition(int position)
 	{
 		this.position = position;
 	}
@@ -22,21 +24,122 @@ public class AddFileViewButton implements View.OnClickListener
 	public int getPosition()
 	{
 		return position;
-	}*/
+	}
 	
 	@Override
 	public void onClick(View v)
 	{
-		uitool.toos(context,"添加");
-		uitool.flist.add(new LayoutFileList(context,null));
-		uitool.pagerAdapter.addView(uitool.flist.get(uitool.flist.size()-1));
-		uitool.pagerAdapter.notifyDataSetChanged();
-		
-		uitool.apptitle.add("文件目录");
-		uitool.apptitle.notifyDataSetChanged();
+		new AddDialog(context)
+			.setOnClick(new OnAddClick())
+			.show();
 	}
 	
 	private ImageButton button;
 	private Activity context;
-//	private int position = 0;
+	private int position = 0;
+	
+	private class OnAddClick implements AddDialog.OnClick
+	{
+		@Override
+		public void onClick(int viewId)
+		{
+			switch(viewId)
+			{
+				case R.id.dialognew_newfile:
+					newfile();
+					break;
+				case R.id.dialognew_newdri:
+					newdri();
+					break;
+				case R.id.dialognew_drititle:
+					opentitle();
+					break;
+				case R.id.dialognew_classview:
+					classview();
+					break;
+				case R.id.dialognew_savetitle:
+					savetitle();
+					break;
+			}
+		}
+	}
+	
+	private void newfile()
+	{
+		final EditBox edit = new EditBox(uitool.mainThis);
+			edit
+			.setTitle("新建文件")
+			.setLeft("取消")
+			.setRight("创建")
+			.setRight(new EditBox.onButton(){
+				@Override
+				public void onClick()
+				{
+					try
+					{
+						LayoutFileList f = uitool.pagerAdapter.get(uitool.add.getPosition());
+						File fp = new File(f.listadp.getFp(),edit.getMessage());
+						fp.createNewFile();
+						f.listadp.data.add(new LayoutFileList.ViewData(fp));
+						f.notifyDataSetChanged();
+						f.listadp.list.setSelection(f.listadp.data.size()-1);
+						uitool.toos(uitool.mainThis,"创建成功");
+					}
+					catch (IOException e)
+					{
+						e.printStackTrace();
+						uitool.toos(uitool.mainThis,"创建失败!");
+					}
+				}
+			});
+		edit.show();
+	}
+	
+	private void newdri()
+	{
+		final EditBox edit = new EditBox(uitool.mainThis);
+			edit
+			.setTitle("新建文件夹")
+			.setLeft("取消")
+			.setRight("创建")
+			.setRight(new EditBox.onButton(){
+				@Override
+				public void onClick()
+				{
+					LayoutFileList f = uitool.pagerAdapter.get(uitool.add.getPosition());
+					File fp = new File(f.listadp.getFp(),edit.getMessage());
+					if(fp.mkdir())
+					{
+						f.listadp.data.add(new LayoutFileList.ViewData(fp));
+						f.notifyDataSetChanged();
+						f.listadp.list.setSelection(f.listadp.data.size()-1);
+						uitool.toos(uitool.mainThis,"创建成功");
+					}
+					else
+						uitool.toos(uitool.mainThis,"创建失败!");
+				}
+			});
+		edit.show();
+	}
+	
+	private void opentitle()
+	{
+		uitool.apptitle.add(AppTitile.DRITITLE);
+		uitool.pagerAdapter.addView(new LayoutFileList(context,null));
+		this.setPosition(uitool.apptitle.listAdapt.data.size() - 1);
+		uitool.apptitle.listAdapt.notifyDataSetChanged();
+		uitool.pagerAdapter.notifyDataSetChanged();
+		uitool.apptitle.setPosition(getPosition());
+		uitool.pagerAdapter.setPosition(getPosition());
+	}
+	
+	private void classview()
+	{
+		
+	}
+	
+	private void savetitle()
+	{
+		
+	}
 }

@@ -9,27 +9,28 @@
 	<ImageView
 		android:layout_height="50dp"
 		android:layout_width="50dp"
-		android:src="@drawable/ic_dri"
-		android:layout_marginLeft="5dp"
+		android:layout_marginLeft="1dp"
 		android:id="@+id/item_filedataview_ficon"/>
 
 	<LinearLayout
 		android:layout_height="match_parent"
-		android:layout_width="match_parent"
+		android:layout_width="0dp"
 		android:orientation="vertical"
-		android:paddingLeft="10dp"
+		android:paddingLeft="5dp"
 		android:paddingTop="5dp"
 		android:paddingBottom="5dp"
-		android:paddingRight="10dp">
+		android:paddingRight="10dp"
+		android:layout_weight="1.0">
 
 		<TextView
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
+			android:layout_width="250dp"
 			android:text="文件名称"
 			android:textColor="#6A6A6A"
 			android:textSize="15sp"
 			android:gravity="top"
-			android:id="@+id/item_filedataview_fname"/>
+			android:id="@+id/item_filedataview_fname"
+			android:maxWidth="250dp"/>
 
 		<LinearLayout
 			android:layout_height="wrap_content"
@@ -39,20 +40,20 @@
 
 			<TextView
 				android:layout_height="wrap_content"
-				android:layout_width="wrap_content"
-				android:textSize="13sp"
-				android:gravity="bottom"
-				android:textColor="#A1A1A1"
-				android:text="2017-04-31"
-				android:id="@+id/item_filedataview_fdate"/>
-
-			<TextView
-				android:layout_height="wrap_content"
 				android:layout_width="0dp"
 				android:textSize="13sp"
 				android:gravity="bottom"
 				android:textColor="#A1A1A1"
-				android:layout_weight="1.0"
+				android:text="2017-04-31"
+				android:id="@+id/item_filedataview_fdate"
+				android:layout_weight="1.0"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:textSize="13sp"
+				android:gravity="bottom"
+				android:textColor="#A1A1A1"
 				android:layout_marginLeft="10dp"
 				android:text="1024KB"
 				android:id="@+id/item_filedataview_fsize"/>
@@ -64,11 +65,21 @@
 				android:gravity="bottom"
 				android:textColor="#A1A1A1"
 				android:text="RW"
-				android:id="@+id/item_filedataview_frb"/>
+				android:id="@+id/item_filedataview_frb"
+				android:layout_marginLeft="10dp"/>
 
 		</LinearLayout>
 
 	</LinearLayout>
+
+	<CheckBox
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginRight="10dp"
+		android:layout_marginLeft="5dp"
+		android:visibility="gone"
+		android:id="@+id/itemfiledataview_checkbox"/>
 
 </LinearLayout>
 

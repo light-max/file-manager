@@ -9,6 +9,9 @@ import jysh.mf.Util.*;
 import android.util.*;
 import android.graphics.*;
 import android.widget.AbsListView.*;
+import android.app.Activity;
+import android.os.*;
+import jysh.mf.Adapter.*;
 
 public class LayoutFileList extends LinearLayout
 {
@@ -25,7 +28,8 @@ public class LayoutFileList extends LinearLayout
 		listadp.setPath((TextView)findViewById(R.id.widget_flist_path));
 	}
 	
-	private FileList listadp;
+	public FileList listadp;
+	public static final int UPDATE = 1;
 	
 	public boolean Backpressed()
 	{
@@ -39,7 +43,11 @@ public class LayoutFileList extends LinearLayout
 		{
 			super(context,resId,obj);
 			data = obj;
-			fp = new File("/storage/emulated/0");
+			fp = new File("/storage/emulated/0/tencent/QQLite/head/_hd");
+			if(fp==null)
+			{
+				fp = new File("/storage/emulated/0/DCIM/Camera");
+			}
 			for(File f:fp.listFiles())
 			{
 				data.add(new ViewData(f));
@@ -69,13 +77,43 @@ public class LayoutFileList extends LinearLayout
 				holder = (ViewHolder)v.getTag();
 			}
 			
-			ViewData f = data.get(position);
-			holder.icon.setImageResource(f.getIcon());
+			final ViewData f = data.get(position);
+			
+			if(f.getIcon()!=R.drawable.ic_image)
+			{
+				holder.icon.setImageResource(f.getIcon());
+			}
+			else if(f.getBmp()==null)
+			{
+				holder.icon.setImageResource(f.getIcon());
+				// 这里有个if
+				if(position < scrollsEndItem + 12 && position > scrollsEndItem - 2)
+				new Thread(new Runnable(){
+					@Override
+					public void run()
+					{
+						f.setBmp(filetool.getBitmap(f.getFp()));
+						Message mes = new Message();
+						mes.what = UPDATE;
+						uitool.mainThis.UpdateUi.sendMessage(mes);
+					}
+				}).start();
+			}
+			else
+			{
+				holder.icon.setImageBitmap(f.getBmp());
+			}
+			
 			holder.name.setText(f.getName());
 			holder.date.setText(f.getDate());
 			holder.size.setText(f.getSize());
 			holder.rb.setText(f.getRb());
 			
+			if(SelectLayout.isSelectFile())
+			{
+				holder.select.setChecked(f.isSelect());
+			}
+				
 			return v;
 		}
 
@@ -83,8 +121,14 @@ public class LayoutFileList extends LinearLayout
 		public void onItemClick(AdapterView<?> p1, View p2, int position, long p4)
 		{
 			File f = data.get(position).getFp();
+			ViewData vd = data.get(position);
 			if(!f.isDirectory())
 			{
+				if(SelectLayout.isSelectFile())
+				{
+					vd.setSelect(!vd.isSelect());
+					notifyDataSetChanged();
+				}
 				return;
 			}
 			stackScroll.add(new Float(list.getFirstVisiblePosition()));
@@ -95,13 +139,27 @@ public class LayoutFileList extends LinearLayout
 		@Override
 		public void onScroll(AbsListView p1, int p2, int p3, int p4)
 		{
-			// TODO: Implement this method
 		}
 
 		@Override
 		public void onScrollStateChanged(AbsListView p1, int p2)
 		{
-			// TODO: Implement this method
+			switch(p2)
+			{
+				case SCROLL_STATE_IDLE:
+					scrollsEndItem = list.getFirstVisiblePosition();
+					for(int i = 0;i < data.size();i++)
+					{
+						if(i < scrollsEndItem - 2 || i > scrollsEndItem + 12)
+						{
+							data.get(i).setBmp(null);
+						}
+					}
+					Message msg = new Message();
+					msg.what = UPDATE;
+					uitool.mainThis.UpdateUi.sendMessage(msg);
+					break;
+			}
 		}
 		
 		public boolean returnDri()
@@ -128,6 +186,7 @@ public class LayoutFileList extends LinearLayout
 				data.add(new ViewData(f));
 			}
 			path.setText(fp.getPath());
+			list.setSelection(0);
 			notifyDataSetChanged();
 		}
 		
@@ -136,7 +195,8 @@ public class LayoutFileList extends LinearLayout
 		private TextView path;
 		private List<Float> stackScroll;
 		private static final int resId = R.layout.item_filedataview;
-		private ListView list;
+		public ListView list;
+		private int scrollsEndItem = 0;
 
 		public void setPath(TextView path)
 		{
@@ -147,6 +207,11 @@ public class LayoutFileList extends LinearLayout
 		public void setFp(File fp)
 		{
 			this.fp = fp;
+		}
+		
+		public File getFp()
+		{
+			return fp;
 		}
 	}
 	
@@ -159,9 +224,11 @@ public class LayoutFileList extends LinearLayout
 			date = (TextView)v.findViewById(R.id.item_filedataview_fdate);
 			size = (TextView)v.findViewById(R.id.item_filedataview_fsize);
 			rb = (TextView)v.findViewById(R.id.item_filedataview_frb);
+			select = (CheckBox)v.findViewById(R.id.itemfiledataview_checkbox);
 		}
 		public ImageView icon;
 		public TextView name,date,size,rb;
+		public CheckBox select;
 	}
 	
 	static public class ViewData
@@ -169,25 +236,46 @@ public class LayoutFileList extends LinearLayout
 		private int icon;
 		private String name,size,date,rb;
 		private File fp;
+		private Bitmap bmp;
+		private boolean select;
 
 		public ViewData(File fp)
 		{
 			this.fp = fp;
 			if(fp.isDirectory())
+			{
 				icon = R.drawable.ic_dri;
+				size = "";
+			}
 			else
+			{
 				icon = filetool.getFiconRes(fp.getName());
+				size = filetool.getFileSize(fp.length());
+			}
 			name = fp.getName();
-			date = "时间";
-			size = fp.length()+"字节";
-			if(fp.canRead())
-				rb = "R";
-			else
-				rb = "_";
-			if(fp.canWrite())
-				rb+="W";
-			else
-				rb+="_";
+			date = filetool.getFileDate(fp.lastModified());
+			rb = filetool.getFileRw(fp);
+			select = false;
+		}
+
+		public void setSelect(boolean select)
+		{
+			this.select = select;
+		}
+
+		public boolean isSelect()
+		{
+			return select;
+		}
+
+		public void setBmp(Bitmap bmp)
+		{
+			this.bmp = bmp;
+		}
+
+		public Bitmap getBmp()
+		{
+			return bmp;
 		}
 
 		public void setIcon(int icon)
@@ -269,5 +357,10 @@ public class LayoutFileList extends LinearLayout
 	public void clear()
 	{
 		listadp.data.clear();
+	}
+	
+	public void notifyDataSetChanged()
+	{
+		listadp.notifyDataSetChanged();
 	}
 }

@@ -9,6 +9,7 @@ import java.util.*;
 import android.graphics.*;
 import jysh.mf.Util.*;
 import android.app.*;
+import jysh.mf.Dialog.*;
 
 public class AppTitile extends LinearLayout implements View.OnClickListener
 {
@@ -33,12 +34,14 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 	public void setPosition(int position)
 	{
 		listAdapt.setPosition(position);
+		titleList.smoothScrollToPosition(position);
 	}
 	
 	private RecyclerView titleList;
-	private TitleListAdapter listAdapt;
+	public TitleListAdapter listAdapt;
 	private ImageButton drawLayout;
 	private ImageButton openmMenu;
+	public static final String DRITITLE = "目录标签";
 
 	@Override
 	public void onClick(View v)
@@ -66,8 +69,30 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 				{
 					int position = holder.getPosition();
 					setPosition(position);
-				//	uitool.add.setPosition(position);
+					uitool.add.setPosition(position);
 					uitool.pagerAdapter.setPosition(position);
+				}
+			});
+			view.setOnLongClickListener(new View.OnLongClickListener(){
+				@Override
+				public boolean onLongClick(View v)
+				{
+					new MessageBox(uitool.mainThis)
+						.setTitle("删除标签")
+						.setMessage("你确定要删除这个"+holder.title.getText().toString()+"吗？")
+						.setLeft("取消")
+						.setRight("确认")
+						.setRight(new MessageBox.onButton(){
+							@Override
+							public void onClick()
+							{
+								int position = holder.getPosition();
+								if(uitool.deleteTitleList(position))
+									uitool.mainThis.finish();
+							}
+						})
+						.show();
+					return false;
 				}
 			});
 			return holder;
@@ -123,5 +148,10 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 	public void notifyDataSetChanged()
 	{
 		listAdapt.notifyDataSetChanged();
+	}
+	
+	public void remove(int position)
+	{
+		listAdapt.data.remove(position);
 	}
 }

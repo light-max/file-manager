@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_width="wrap_content"
+		android:text="大型文本"
+		android:layout_marginLeft="10dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginTop="10dp"
+		android:id="@+id/messagebox_title"/>
+
+	<View
+		android:layout_height="3dp"
+		android:layout_width="270dp"
+		android:background="#00659F"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:minHeight="70dp"
+		android:padding="8dp"
+		android:id="@+id/messagebox_message"
+		android:gravity="top|left"
+		android:background="#00000000"
+		android:hint="请输指定一个名称"
+		android:textColorHint="#C8C8C8"
+		android:inputType="textPersonName"/>
+
+	<View
+		android:layout_height="0.5dp"
+		android:layout_width="270dp"
+		android:background="#00659F"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:layout_gravity="right">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="取消"
+			android:textColor="#00659F"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="5dp"
+			android:minWidth="60dp"
+			android:gravity="center"
+			android:background="@drawable/textbutton"
+			android:id="@+id/messagebox_btletf"
+			android:paddingTop="7dp"
+			android:paddingBottom="7dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="确认"
+			android:textColor="#00659F"
+			android:layout_marginRight="5dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="2dp"
+			android:layout_marginBottom="10dp"
+			android:minWidth="60dp"
+			android:gravity="center"
+			android:background="@drawable/textbutton"
+			android:id="@+id/messagebox_btright"
+			android:paddingBottom="7dp"
+			android:paddingTop="7dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

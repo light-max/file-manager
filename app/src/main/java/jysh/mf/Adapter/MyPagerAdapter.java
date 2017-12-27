@@ -4,22 +4,23 @@ import android.support.v4.view.*;
 import java.util.*;
 import android.view.*;
 import jysh.mf.Util.*;
+import jysh.mf.Widget.*;
 
 public class MyPagerAdapter extends PagerAdapter
 	implements ViewPager.OnPageChangeListener
 {
-	public List<View> view;
+	public List<LayoutFileList> view;
 	public ViewPager viewPager;
-
+	
 	public MyPagerAdapter(ViewPager viewPager)
 	{
-		view = new ArrayList<View>();
+		view = new ArrayList<LayoutFileList>();
 		this.viewPager = viewPager;
 		this.viewPager.setAdapter(this);
 		this.viewPager.setOnPageChangeListener(this);
 	}
 
-	public void addView(View view)
+	public void addView(LayoutFileList view)
 	{
 		this.view.add(view);
 	}
@@ -58,14 +59,13 @@ public class MyPagerAdapter extends PagerAdapter
 	public void setPosition(int position)
 	{
 		viewPager.setCurrentItem(position);
-		notifyDataSetChanged();
 	}
 
 	@Override
 	public void onPageSelected(int position)
 	{
 		// TODO: Implement this method
-	//	uitool.add.setPosition(position);
+		uitool.add.setPosition(position);
 		uitool.apptitle.setPosition(position);
 	}
 
@@ -79,5 +79,21 @@ public class MyPagerAdapter extends PagerAdapter
 	public void onPageScrolled(int p1, float p2, int p3)
 	{
 		// TODO: Implement this method
+	}
+	
+	public void remove(int position)
+	{
+		destroyItem(viewPager,position,null);
+		view.remove(position);
+	}
+	
+	public LayoutFileList get(int position)
+	{
+		return view.get(position);
+	}
+	
+	public int size()
+	{
+		return view.size();
 	}
 }

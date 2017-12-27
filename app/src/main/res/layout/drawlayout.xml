@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="#FFFFFF">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="多选列表"
+		android:paddingLeft="30dp"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp"
+		android:textSize="20sp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/drawlayout_select"
+		android:textColor="#000000"
+		android:layout_marginTop="100dp"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<android.support.v7.widget.RecyclerView
+		android:layout_weight="1.0"
+		android:layout_height="0dp"
+		android:layout_width="match_parent"
+		android:id="@+id/drawlayout_selectlist"/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_weight="1.0"
+		android:visibility="gone"
+		android:layout_height="0dp"
+		android:gravity="center"
+		android:text="你还没有进行多选操作"
+		android:textSize="25sp"
+		android:id="@+id/drawlayout_selecttext"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="目录书签"
+		android:paddingLeft="30dp"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp"
+		android:textSize="20sp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/drawlayout_dri"
+		android:textColor="#000000"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="文件书签"
+		android:paddingLeft="30dp"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp"
+		android:textSize="20sp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/drawlayout_file"
+		android:textColor="#000000"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="设置"
+		android:paddingLeft="30dp"
+		android:paddingTop="10dp"
+		android:paddingBottom="10dp"
+		android:textSize="20sp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/drawlayout_set"
+		android:textColor="#000000"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+</LinearLayout>
+
