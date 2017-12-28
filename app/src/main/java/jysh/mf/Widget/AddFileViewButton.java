@@ -79,6 +79,16 @@ public class AddFileViewButton implements View.OnClickListener
 					{
 						LayoutFileList f = uitool.pagerAdapter.get(uitool.add.getPosition());
 						File fp = new File(f.listadp.getFp(),edit.getMessage());
+						if(fp.getName().trim().length()==0)
+						{
+							uitool.toos(uitool.mainThis,"文件名有误");
+							return;
+						}
+						if(fp.exists())
+						{
+							uitool.toos(uitool.mainThis,"已有同名文件");
+							return;
+						}
 						fp.createNewFile();
 						f.listadp.data.add(new LayoutFileList.ViewData(fp));
 						f.notifyDataSetChanged();
@@ -108,6 +118,16 @@ public class AddFileViewButton implements View.OnClickListener
 				{
 					LayoutFileList f = uitool.pagerAdapter.get(uitool.add.getPosition());
 					File fp = new File(f.listadp.getFp(),edit.getMessage());
+					if(fp.getName().trim().length()==0)
+					{
+						uitool.toos(uitool.mainThis,"文件名有误");
+						return;
+					}
+					if(fp.exists())
+					{
+						uitool.toos(uitool.mainThis,"已有同名文件");
+						return;
+					}
 					if(fp.mkdir())
 					{
 						f.listadp.data.add(new LayoutFileList.ViewData(fp));

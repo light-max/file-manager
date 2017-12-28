@@ -4,7 +4,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="horizontal"
-	android:background="#ECECEC">
+	android:background="#ECECEC"
+	android:descendantFocusability="blocksDescendants">
 
 	<ImageView
 		android:layout_height="50dp"

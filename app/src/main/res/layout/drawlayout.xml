@@ -4,7 +4,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:background="#FFFFFF">
+	android:background="#FFFFFF"
+	android:id="@+id/drawlayout">
 
 	<TextView
 		android:layout_height="wrap_content"
@@ -28,7 +29,8 @@
 		android:layout_weight="1.0"
 		android:layout_height="0dp"
 		android:layout_width="match_parent"
-		android:id="@+id/drawlayout_selectlist"/>
+		android:id="@+id/drawlayout_selectlist"
+		android:visibility="gone"/>
 
 	<TextView
 		android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import jysh.mf.Util.*;
 import jysh.mf.Widget.*;
 import jysh.mf.Adapter.*;
 import android.support.v4.view.*;
+import jysh.mf.Dialog.*;
 
 public class MainActivity extends Activity 
 {
@@ -39,6 +40,10 @@ public class MainActivity extends Activity
 				case LayoutFileList.UPDATE:
 					LayoutFileList f = uitool.pagerAdapter.get(uitool.add.getPosition());
 					f.notifyDataSetChanged();
+					break;
+				case Progeress.DISMISS:
+					uitool.progerss.dismiss();
+					break;
 			}
 		}
 	};

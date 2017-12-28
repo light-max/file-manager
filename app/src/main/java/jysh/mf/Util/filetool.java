@@ -115,4 +115,37 @@ public class filetool
 			rb+="_";
 		return rb;
 	}
+	
+	public static File fileTo = null;
+	
+	public static void copyFile(File fp)
+	{
+		
+	}
+	
+	public static void moveFile(File fp)
+	{
+		
+	}
+	
+	public static void renameFile(File fp,String name)
+	{
+		
+	}
+	
+	public static void deleteFile(File fp)
+	{
+		if(fp==null)
+		{
+			return;
+		}
+		if(fp.isDirectory()&&fp.canRead()&&fp.canWrite())
+		{
+			for(File f:fp.listFiles())
+			{
+				deleteFile(f);
+			}
+		}
+		fp.delete();
+	}
 }

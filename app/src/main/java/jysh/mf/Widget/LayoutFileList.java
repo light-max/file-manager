@@ -12,6 +12,8 @@ import android.widget.AbsListView.*;
 import android.app.Activity;
 import android.os.*;
 import jysh.mf.Adapter.*;
+import jysh.mf.Dialog.*;
+import android.widget.CompoundButton.*;
 
 public class LayoutFileList extends LinearLayout
 {
@@ -37,7 +39,7 @@ public class LayoutFileList extends LinearLayout
 	}
 	
 	public class FileList extends ArrayAdapter<ViewData>
-		implements OnItemClickListener,OnScrollListener
+	implements OnItemClickListener,OnScrollListener,OnItemLongClickListener
 	{
 		public FileList(Context context,ListView list,List<ViewData> obj)
 		{
@@ -46,7 +48,7 @@ public class LayoutFileList extends LinearLayout
 			fp = new File("/storage/emulated/0/tencent/QQLite/head/_hd");
 			if(fp==null)
 			{
-				fp = new File("/storage/emulated/0/DCIM/Camera");
+				fp = new File("/storage/emulated/0");
 			}
 			for(File f:fp.listFiles())
 			{
@@ -56,6 +58,7 @@ public class LayoutFileList extends LinearLayout
 			this.list.setAdapter(this);
 			this.list.setOnItemClickListener(this);
 			this.list.setOnScrollListener(this);
+			this.list.setOnItemLongClickListener(this);
 			stackScroll = new ArrayList<>();
 		}
 
@@ -111,9 +114,33 @@ public class LayoutFileList extends LinearLayout
 			
 			if(SelectLayout.isSelectFile())
 			{
+				final SelectLayout select = uitool.drawlayout.select;
+				holder.select.setVisibility(View.VISIBLE);
 				holder.select.setChecked(f.isSelect());
+				holder.select.setOnClickListener(
+				new View.OnClickListener(){
+					@Override
+					public void onClick(View v)
+					{
+						f.setSelect(!f.isSelect());
+						if(f.isSelect())
+						{
+							select.data.add(new SelectLayout.Data(f.getFp()));
+						}
+						else
+						{
+							select.data.remove((Object)new SelectLayout.Data(f.getFp()));
+						}
+						uitool.toos(uitool.mainThis,""+select.data.size());
+						uitool.popselect.show();
+					}
+				});
 			}
-				
+			else
+			{
+				holder.select.setVisibility(View.GONE);
+			}
+			
 			return v;
 		}
 
@@ -121,19 +148,44 @@ public class LayoutFileList extends LinearLayout
 		public void onItemClick(AdapterView<?> p1, View p2, int position, long p4)
 		{
 			File f = data.get(position).getFp();
-			ViewData vd = data.get(position);
+			final ViewData vd = data.get(position);
+			uitool.toos(uitool.mainThis,f.getName());
 			if(!f.isDirectory())
 			{
-				if(SelectLayout.isSelectFile())
+			/*	if(SelectLayout.isSelectFile())
 				{
 					vd.setSelect(!vd.isSelect());
 					notifyDataSetChanged();
-				}
+				}*/
 				return;
 			}
 			stackScroll.add(new Float(list.getFirstVisiblePosition()));
 			setFp(data.get(position).getFp());
 			loadList();
+		}
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> p1, View view, int position, long p4)
+		{
+			final ViewData d = getItem(position);
+			new OperateFile(getContext(),d.getFp())
+				// 多选
+				.setSelect(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						SelectLayout.setSelectFile(true);
+						d.setSelect(true);
+						final SelectLayout select = uitool.drawlayout.select;
+						select.data.remove((Object) new SelectLayout.Data(d.getFp()));
+						select.data.add(new SelectLayout.Data(d.getFp()));
+						uitool.toos(uitool.mainThis,""+select.data.size());
+						notifyDataSetChanged();
+						uitool.popselect.show();
+					}
+				})
+				.show();
+			return true;
 		}
 
 		@Override
@@ -178,8 +230,12 @@ public class LayoutFileList extends LinearLayout
 			return false;
 		}
 		
-		private void loadList()
+		public void loadList()
 		{
+			if(fp==null)
+			{
+				fp = new File("/storage/emulated/0");
+			}
 			data.clear();
 			for(File f:fp.listFiles())
 			{
@@ -255,6 +311,18 @@ public class LayoutFileList extends LinearLayout
 			name = fp.getName();
 			date = filetool.getFileDate(fp.lastModified());
 			rb = filetool.getFileRw(fp);
+			
+			if(SelectLayout.isSelectFile())
+			{
+				for(SelectLayout.Data f:uitool.drawlayout.select.data)
+				{
+					if(fp.equals((Object)f.getFp()))
+					{
+						select = true;
+						return;
+					}
+				}
+			}
 			select = false;
 		}
 

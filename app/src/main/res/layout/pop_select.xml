@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent"
+	android:orientation="vertical"
+	android:paddingBottom="5dp"
+	android:background="#00659F">
+
+	<View
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:background="#999999"/>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:background="#00659F"
+		android:gravity="center">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:background="@drawable/imagebutton"
+			android:tint="#ffffff"
+			android:src="@drawable/ic_exit"
+			android:layout_marginLeft="5dp"
+			android:padding="8dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="5dp"
+			android:id="@+id/popselect_exit"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="1"
+			android:textColor="#FEFEFE"
+			android:textSize="20sp"
+			android:gravity="center"
+			android:layout_weight="1.0"
+			android:id="@+id/popselect_size"/>
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:background="@drawable/imagebutton"
+			android:tint="#ffffff"
+			android:src="@drawable/ic_copy"
+			android:padding="8dp"
+			android:id="@+id/popselect_copy"/>
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:background="@drawable/imagebutton"
+			android:tint="#ffffff"
+			android:src="@drawable/ic_move"
+			android:padding="8dp"
+			android:id="@+id/popselect_move"/>
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:background="@drawable/imagebutton"
+			android:tint="#ffffff"
+			android:src="@drawable/ic_delete"
+			android:padding="8dp"
+			android:id="@+id/popselect_delete"/>
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:background="@drawable/imagebutton"
+			android:tint="#ffffff"
+			android:src="@drawable/ic_qx"
+			android:padding="8dp"
+			android:id="@+id/popselect_qx"/>
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:background="@drawable/imagebutton"
+			android:tint="#ffffff"
+			android:layout_marginRight="5dp"
+			android:src="@drawable/ic_menu"
+			android:padding="8dp"
+			android:id="@+id/popselect_menu"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

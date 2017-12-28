@@ -52,10 +52,17 @@ public class SelectLayout extends RecyclerView.Adapter<ViewHolder>
 		public Data(File fp)
 		{
 			this.fp = fp;
-			icon = filetool.getFiconRes(fp.getName());
+			if(fp.isDirectory())
+			{
+				icon = R.drawable.ic_dri;
+			}
+			else
+			{
+				icon = filetool.getFiconRes(fp.getName());
+			}
 			name = fp.getName();
 		}
-
+		
 		public void setFp(File fp)
 		{
 			this.fp = fp;
@@ -85,11 +92,17 @@ public class SelectLayout extends RecyclerView.Adapter<ViewHolder>
 		{
 			return icon;
 		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			return ((Data)o).getFp().equals(fp);
+		}
 	}
 	
 	public RecyclerView view;
 	public List<Data> data = new ArrayList<>();
-	private static boolean selectFile = true;
+	private static boolean selectFile = false;
 
 	public static void setSelectFile(boolean selectFile)
 	{
@@ -101,6 +114,12 @@ public class SelectLayout extends RecyclerView.Adapter<ViewHolder>
 		return SelectLayout.selectFile;
 	}
 	
+	public void cancelSelect()
+	{
+		setSelectFile(false);
+		uitool.drawlayout.showView = 0;
+		data.clear();
+	}
 }
 
 class ViewHolder extends RecyclerView.ViewHolder

@@ -13,6 +13,7 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 	{
 		super(context,attr);
 		LayoutInflater.from(context).inflate(R.layout.drawlayout,this);
+		setOnClickListener(this);
 		for(int i = 0;i < id.length;i++)
 		{
 			view[i] = (TextView)findViewById(id[i]);
@@ -35,6 +36,7 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 	};
 	private TextView view[] = new TextView[id.length];
 	public SelectLayout select;
+	public int showView = 0;
 	
 	@Override
 	public void onClick(View v)
@@ -44,14 +46,29 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 	
 	private void showText(int id)
 	{
+		showView = id;
 		for(int i = 0;i < textId.length;i++)
 		{
 			findViewById(textId[i]).setVisibility(View.GONE);
 		}
+		select.view.setVisibility(View.GONE);
 		switch(id)
 		{
 			case R.id.drawlayout_select:
-				findViewById(textId[0]).setVisibility(View.VISIBLE);
+				if(!SelectLayout.isSelectFile())
+				{
+					findViewById(textId[0]).setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					select.view.setVisibility(View.VISIBLE);
+					select.notifyDataSetChanged();
+				}
 		}
+	}
+	
+	public void Open()
+	{
+		showText(showView);
 	}
 }

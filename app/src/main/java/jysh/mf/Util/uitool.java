@@ -7,6 +7,9 @@ import java.util.*;
 import jysh.mf.*;
 import jysh.mf.Adapter.*;
 import jysh.mf.Widget.*;
+import android.support.v4.widget.*;
+import android.view.*;
+import jysh.mf.Dialog.*;
 
 public class uitool
 {
@@ -16,6 +19,10 @@ public class uitool
 	static public MyPagerAdapter pagerAdapter;
 	static public AddFileViewButton add;
 	static public MyDrawLayout drawlayout;
+	static public DrawerLayout mainDrawer;
+	static public PopSelect popselect;
+	
+	static public Progeress progerss;
 	
 	static public void InitViewWidget(Activity context)
 	{
@@ -33,6 +40,13 @@ public class uitool
 		add = new AddFileViewButton(context);
 		
 		drawlayout = (MyDrawLayout)context.findViewById(R.id.main_drawlayout);
+		
+		mainDrawer = (DrawerLayout)context.findViewById(R.id.main);
+		mainDrawer.setDrawerListener(new DrawerLayoutOpenClose());
+		
+		popselect = (PopSelect)context.findViewById(R.id.main_popselect);
+		
+		progerss = new Progeress(context);
 	}
 	
 	static public boolean deleteTitleList(int position)
@@ -47,10 +61,6 @@ public class uitool
 			);
 			list.remove(position);
 			uitool.pagerAdapter.view = list;
-			/*	if(position==uitool.pagerAdapter.size()-1)
-			 {
-			 position--;
-			 }*/
 			position = 0;
 		}
 		if(uitool.pagerAdapter.size()!=0)
@@ -68,5 +78,30 @@ public class uitool
 	static public void toos(Context activity,String message)
 	{
 		Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
+	}
+	
+	static private class DrawerLayoutOpenClose implements DrawerLayout.DrawerListener
+	{
+		@Override
+		public void onDrawerClosed(View p1)
+		{
+		}
+
+		@Override
+		public void onDrawerSlide(View p1, float p2)
+		{
+		}
+
+		@Override
+		public void onDrawerOpened(View p1)
+		{
+			drawlayout.Open();
+			drawlayout.select.notifyDataSetChanged();
+		}
+
+		@Override
+		public void onDrawerStateChanged(int p1)
+		{
+		}
 	}
 }
