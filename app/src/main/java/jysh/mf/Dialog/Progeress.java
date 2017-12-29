@@ -15,6 +15,7 @@ public class Progeress extends Dialog
 			LayoutInflater.from(context)
 			.inflate(R.layout.dialogprogress,null)
 		);
+		setCancelable(false);
 	}
 	
 	public static final int DISMISS = 2;

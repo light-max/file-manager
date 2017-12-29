@@ -2,9 +2,13 @@ package jysh.mf.Util;
 
 import android.graphics.*;
 import java.io.*;
-import jysh.mf.R;
 import java.text.*;
 import java.util.*;
+import jysh.mf.*;
+import jysh.mf.Widget.*;
+import android.os.*;
+import jysh.mf.Dialog.*;
+import android.util.*;
 
 public class filetool
 {
@@ -19,6 +23,8 @@ public class filetool
 	public static final String apk = "(.*)\\.apk$";
 	public static final String ppt = "(.*)\\.(?:ppt|pdf)$";
 	public static final String doc = "(.*)\\.(?:doc|dox|docx)$";
+	
+	public static native void fun();
 	
 	public static int getFiconRes(String fname)
 	{
@@ -67,13 +73,12 @@ public class filetool
 		{
 			// 2017-11-26 网友倚楼听风雨提供的方法
 			FileInputStream is = new FileInputStream(fp.getPath());
-			temBitmap = BitmapFactory
-				.decodeFileDescriptor
-			(is.getFD(), null, outOptions);
+			temBitmap = BitmapFactory.decodeFileDescriptor(is.getFD(), null, outOptions);
+			is.close();
 		}
 		catch (IOException e)
 		{
-			
+			e.printStackTrace();
 		}
 		return temBitmap;
 	}
@@ -118,19 +123,164 @@ public class filetool
 	
 	public static File fileTo = null;
 	
-	public static void copyFile(File fp)
+/*	public static void coypyFile()
 	{
+		final List<LayoutFileList> view = uitool.pagerAdapter.view;
+		
+		// 目标路径
+		fileTo = view.get(uitool.add.getPosition()).listadp.getFp();
+		
+		new Thread(new Runnable(){
+			@Override
+			public void run()
+			{
+				List<File> fp = getFile();
+				// 开始复制
+				for(int u = 0;u < fp.size();u++)
+				{
+					try
+					{
+						Thread.sleep(5);
+					}
+					catch (InterruptedException e)
+					{}
+					File i = fp.get(u);
+					File o = new File(fileTo,i.getName());
+					byte byt[] = new byte[(int)i.length()];
+					try{
+						o.createNewFile();
+					}catch (IOException e){
+						e.printStackTrace();
+					}
+					try{
+						FileInputStream in = new FileInputStream(i);
+						FileOutputStream out = new FileOutputStream(o);
+						try
+						{
+							in.read(byt);
+							out.write(byt);
+						}
+						catch (IOException e)
+						{
+							e.printStackTrace();
+						}
+					}
+					catch (FileNotFoundException e)
+					{
+						e.printStackTrace();
+					}
+				}
+				// 刷新界面
+				Message msg = new Message();
+				msg.what = Progeress.DISMISS;
+				msg.obj = view;
+				uitool.mainThis.UpdateUi.sendMessage(msg);
+			}
+		}).start();
+		
+		// 刷新界面
 		
 	}
-	
-	public static void moveFile(File fp)
-	{
-		
+	*/
+	public static void copyFile() {
+		final List<LayoutFileList> view = uitool.pagerAdapter.view;
+
+		// 目标路径
+		fileTo = view.get(uitool.add.getPosition()).listadp.getFp();
+
+		new Thread(new Runnable() {
+				@Override
+				public void run() {
+					List<File> fp = getFile();
+					// 开始复制
+					for (int u = 0; u < fp.size(); u++) {
+						File i = fp.get(u);
+						File o = new File(fileTo, i.getName());
+						byte byt[] = new byte[1024];
+						BufferedInputStream inputStream = null;
+						BufferedOutputStream outputStream = null;
+						try {
+							inputStream = new BufferedInputStream(new FileInputStream(i));
+							outputStream = new BufferedOutputStream(new FileOutputStream(o));
+							int length = 0;
+							try
+							{
+								while ((length = inputStream.read(byt)) != -1)
+								{
+									outputStream.write(byt, 0, length);
+								}
+							}
+							catch (IOException e)
+							{}
+						}
+						catch (FileNotFoundException e)
+						{
+							e.printStackTrace();
+						} finally {
+							try
+							{
+								// 2017-12-29 15:9网友倚楼听风雨再次提供帮助
+								outputStream.flush();
+								outputStream.close();
+								inputStream.close();
+							}
+							catch (IOException e)
+							{}
+						}
+						System.out.println(u);
+					}
+					// 刷新界面
+					Message msg = new Message();
+					msg.what = Progeress.DISMISS;
+					msg.obj = view;
+					uitool.mainThis.UpdateUi.sendMessage(msg);
+				}
+			}).start();
+
+		// 刷新界面
+
 	}
 	
-	public static void renameFile(File fp,String name)
+	public static void mkDri(File fp,File path)
 	{
+		File newdri = new File(path,fp.getName());
+		newdri.mkdir();
+		for(File f:fp.listFiles())
+		{
+			if(f.isDirectory())
+			{
+				mkDri(f,newdri);
+			}
+		}
+	}
+	
+	public static void moveFile()
+	{
+		List<LayoutFileList> view = uitool.pagerAdapter.view;
+		fileTo = view.get(uitool.add.getPosition()).listadp.getFp();
+		List<File> fp = getFile();
 		
+		// 开始便改文件路径,也就是移动文件
+		for(File f:fp)
+		{
+			if(!f.isDirectory())
+			{
+				f.renameTo(new File(fileTo,f.getName()));
+			}
+		}
+		
+		// 刷新界面
+		for(LayoutFileList v:view)
+		{
+			v.listadp.loadList();
+			v.listadp.notifyDataSetChanged();
+		}
+	}
+	
+	public static boolean renameFile(File fp,String name)
+	{
+		File to = new File(fp.getParent(),name);
+		return fp.renameTo(to);
 	}
 	
 	public static void deleteFile(File fp)
@@ -147,5 +297,16 @@ public class filetool
 			}
 		}
 		fp.delete();
+	}
+	
+	public static List<File> getFile()
+	{
+		List<File> fp = new ArrayList<>();
+		List<SelectLayout.Data> select = uitool.drawlayout.select.data;
+		for(SelectLayout.Data f:select)
+		{
+			fp.add(f.getFp());
+		}
+		return fp;
 	}
 }

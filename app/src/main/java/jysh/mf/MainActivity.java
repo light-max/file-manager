@@ -42,7 +42,16 @@ public class MainActivity extends Activity
 					f.notifyDataSetChanged();
 					break;
 				case Progeress.DISMISS:
+					uitool.popselect.cancel();
 					uitool.progerss.dismiss();
+					if(msg.obj!=null)
+					{
+						for(LayoutFileList v:(List<LayoutFileList>)msg.obj)
+						{
+							v.listadp.loadList();
+							v.listadp.notifyDataSetChanged();
+						}
+					}
 					break;
 			}
 		}

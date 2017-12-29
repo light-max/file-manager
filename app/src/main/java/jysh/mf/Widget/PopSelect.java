@@ -33,8 +33,20 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 			@Override
 			public void onClick()
 			{
-				uitool.progerss.show();
-				cancel();
+				new MessageBox(getContext())
+					.setTitle("复制文件")
+					.setMessage("你确定把文件复制在这个目录吗")
+					.setLeft("取消")
+					.setRight("确认复制")
+					.setRight(new MessageBox.onButton(){
+						@Override
+						public void onClick()
+						{
+							uitool.progerss.show();
+							filetool.copyFile();
+						}
+					})
+					.show();
 			}
 		};
 		move = new OnClick(){
@@ -50,19 +62,7 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 						@Override
 						public void onClick()
 						{
-							uitool.progerss.show();
-							
-							filetool.fileTo = uitool.pagerAdapter.get(uitool.add.getPosition()).listadp.getFp();
-
-							for(SelectLayout.Data f:uitool.drawlayout.select.data)
-							{
-								filetool.moveFile(f.getFp());
-							}
-									
-							for(LayoutFileList ff:uitool.pagerAdapter.view)
-							{
-								ff.listadp.loadList();
-							}
+							filetool.moveFile();
 							cancel();
 						}
 					})
@@ -104,6 +104,10 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 				List<LayoutFileList.ViewData> data = view.listadp.data;
 				for(LayoutFileList.ViewData f:data)
 				{
+					if(f.getFp().isDirectory())
+					{
+						continue;
+					}
 					Object obj = new SelectLayout.Data(f.getFp());
 					uitool.drawlayout.select.data.remove(obj);
 					f.setSelect(true);
@@ -210,50 +214,5 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 		LayoutFileList showView = uitool.pagerAdapter.get(uitool.add.getPosition());
 		uitool.drawlayout.select.cancelSelect();
 		showView.notifyDataSetChanged();
-	}
-	
-	// 把文件按目录的深度排列,,以免被选中的文件夹中的文件先进行操作
-	public List<File> getFile()
-	{
-		int start = 20,end = 0;
-		List<File> fp = new ArrayList<>();
-		List<SelectLayout.Data> select = uitool.drawlayout.select.data;
-		// 先查找最短路径和最长路径
-		for(SelectLayout.Data f:select)
-		{
-			int size = strMath(f.getFp().getPath());
-			if(size<start)
-			{
-				start = size;
-			}
-			if(size>end)
-			{
-				end = size;
-			}
-		}
-		// 缩短范围后就挨个添加
-		for(int i = start;i <= end;i++)
-		{
-			for(SelectLayout.Data f:select)
-			{
-				if(strMath(f.getFp().getPath())==i)
-				{
-					fp.add(f.getFp());
-				}
-			}
-		}
-		return fp;
-	}
-	
-	// 查看字符'/'在字符串中出现的次数,英语不好只能用这个名称了
-	private int strMath(String str)
-	{
-		int len = 0;
-		for(int i = 0;i < str.length();i++)
-		{
-			if(str.charAt(i)=='/')
-				len++;
-		}
-		return len;
 	}
 }

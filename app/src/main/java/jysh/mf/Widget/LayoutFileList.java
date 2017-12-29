@@ -112,7 +112,7 @@ public class LayoutFileList extends LinearLayout
 			holder.size.setText(f.getSize());
 			holder.rb.setText(f.getRb());
 			
-			if(SelectLayout.isSelectFile())
+			if(SelectLayout.isSelectFile()&&!f.getFp().isDirectory())
 			{
 				final SelectLayout select = uitool.drawlayout.select;
 				holder.select.setVisibility(View.VISIBLE);
