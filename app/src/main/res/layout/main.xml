@@ -6,44 +6,43 @@
 	android:layout_width="match_parent"
 	android:id="@+id/main">
 
-	<FrameLayout
+	<LinearLayout
 		android:layout_height="match_parent"
-		android:layout_width="match_parent">
+		android:layout_width="match_parent"
+		android:orientation="vertical">
 
-		<LinearLayout
+		<jysh.mf.Widget.AppTitile
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:orientation="vertical">
+			android:id="@+id/main_title"/>
 
-			<jysh.mf.Widget.AppTitile
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:id="@+id/main_title"/>
+		<FrameLayout
+			android:layout_height="0dp"
+			android:layout_width="match_parent"
+			android:layout_weight="1">
 
 			<android.support.v4.view.ViewPager
-				android:layout_height="0dp"
+				android:layout_height="match_parent"
 				android:layout_width="match_parent"
-				android:layout_weight="1.0"
 				android:id="@+id/main_viewpager"/>
 
-			<jysh.mf.Widget.PopSelect
+			<ImageButton
+				style="?android:attr/buttonBarButtonStyle"
 				android:layout_height="wrap_content"
-				android:layout_width="match_parent"
-				android:id="@+id/main_popselect"
-				android:visibility="gone"/>
+				android:layout_width="wrap_content"
+				android:src="@android:drawable/ic_menu_close_clear_cancel"
+				android:id="@+id/main_add"
+				android:layout_gravity="bottom|right"/>
 
-		</LinearLayout>
+		</FrameLayout>
 
-		<ImageButton
-			style="?android:attr/buttonBarButtonStyle"
+		<jysh.mf.Widget.PopSelect
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:src="@android:drawable/ic_menu_close_clear_cancel"
-			android:layout_gravity="bottom|end"
-			android:layout_margin="16dp"
-			android:id="@+id/main_add"/>
+			android:layout_width="match_parent"
+			android:id="@+id/main_popselect"
+			android:visibility="gone"/>
 
-	</FrameLayout>
+	</LinearLayout>
 
 	<LinearLayout
 		android:background="#8F8C8B"

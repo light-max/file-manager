@@ -168,6 +168,7 @@ public class LayoutFileList extends LinearLayout
 		public boolean onItemLongClick(AdapterView<?> p1, View view, int position, long p4)
 		{
 			final ViewData d = getItem(position);
+			final int posit = position;
 			new OperateFile(getContext(),d.getFp())
 				// 多选
 				.setSelect(new OperateFile.OnClick(){
@@ -182,6 +183,100 @@ public class LayoutFileList extends LinearLayout
 						uitool.toos(uitool.mainThis,""+select.data.size());
 						notifyDataSetChanged();
 						uitool.popselect.show();
+					}
+				})
+				// 打开方式
+				.setOpen(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						
+					}
+				})
+				// 重命名
+				.setReanme(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						final EditBox edit = new EditBox(getContext());
+						edit
+							.setTitle("重命名")
+							.setLeft("取消")
+							.setRight("确认")
+							.setRight(new EditBox.onButton(){
+								@Override
+								public void onClick()
+								{
+									File fp = d.getFp();
+									if(new File(fp.getParent(),edit.getMessage()).exists())
+									{
+										uitool.toos(uitool.mainThis,"冲突的命名");
+										return;
+									}
+									File newFname = new File(fp.getParent(),edit.getMessage());
+									if(fp.renameTo(newFname))
+									{
+										uitool.toos(uitool.mainThis,"重命名成功");
+										d.setFp(newFname);
+										d.setName(newFname.getName());
+										return;
+									}
+									uitool.toos(uitool.mainThis,"重命名失败");
+								}
+							})
+							.show();
+					}
+				})
+				// 删除
+				.setDelete(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						new MessageBox(getContext())
+							.setTitle("正在删除")
+							.setMessage("文件删除，此操作无法逆转")
+							.setLeft("取消")
+							.setRight("删除")
+							.setRight(new MessageBox.onButton(){
+								@Override
+								public void onClick()
+								{
+									filetool.deleteFile(d.getFp());
+									if(d.getFp().exists())
+									{
+										uitool.toos(uitool.mainThis,"删除失败");
+										return;
+									}
+									data.remove(posit);
+									notifyDataSetChanged();
+									uitool.toos(uitool.mainThis,"删除成功");
+								}
+							})
+							.show();
+					}
+				})
+				// 移动
+				.setMove(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						
+					}
+				})
+				// 复制
+				.setCopy(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+
+					}
+				})
+				// 添加到书签
+				.setAddbook(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+
 					}
 				})
 				.show();

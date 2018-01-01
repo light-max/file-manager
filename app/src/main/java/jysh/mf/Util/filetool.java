@@ -289,7 +289,7 @@ public class filetool
 		{
 			return;
 		}
-		if(fp.isDirectory()&&fp.canRead()&&fp.canWrite())
+		if(fp.isDirectory())
 		{
 			for(File f:fp.listFiles())
 			{

@@ -69,6 +69,12 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		return this;
 	}
 
+	public OperateFile setReanme(OnClick rename)
+	{
+		this.rename = rename;
+		return this;
+	}
+	
 	public OperateFile setOpen(OnClick open)
 	{
 		this.open = open;
