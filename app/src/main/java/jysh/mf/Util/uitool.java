@@ -13,6 +13,8 @@ import jysh.mf.Dialog.*;
 
 public class uitool
 {
+	static public final int TOAS = 3;
+	
 	static public MainActivity mainThis;
 	
 	static public AppTitile apptitle;

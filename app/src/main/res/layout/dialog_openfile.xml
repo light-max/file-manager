@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_exit"
+			android:background="@drawable/imagebutton"
+			android:padding="3dp"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="5dp"
+			android:id="@+id/dialog_openfile_exit"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="打开方式..."
+			android:layout_gravity="bottom"
+			android:layout_marginLeft="10dp"
+			android:textSize="25sp"
+			android:layout_marginBottom="1dp"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_width="340dp"
+		android:layout_height="3dp"
+		android:background="#00569F"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:layout_marginTop="3dp"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_textlook">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_text"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="文本查看"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_image">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_image"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="照片查看"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_web">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_web"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="查看网页"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_textedit">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_code"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="文本编辑"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_ys">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_zip"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="压缩文件"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_jy">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_zip"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="解压文件"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_ziplook">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_file_zip"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="浏览压缩文件"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_apk">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_launcher"
+			android:layout_marginLeft="5dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="APK安装"
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:id="@+id/dialog_openfile_null">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_menu"
+			android:layout_marginLeft="5dp"
+			android:tint="#000000"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:text="其他应用程序..."
+			android:textSize="20sp"
+			android:paddingLeft="5dp"
+			android:paddingBottom="5dp"
+			android:paddingTop="5dp"
+			android:layout_weight="1.0"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+</LinearLayout>
+

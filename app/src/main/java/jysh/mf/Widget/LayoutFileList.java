@@ -46,7 +46,7 @@ public class LayoutFileList extends LinearLayout
 			super(context,resId,obj);
 			data = obj;
 			fp = new File("/storage/emulated/0/tencent/QQLite/head/_hd");
-			if(fp==null)
+			if(fp==null||!fp.exists())
 			{
 				fp = new File("/storage/emulated/0");
 			}
@@ -131,7 +131,6 @@ public class LayoutFileList extends LinearLayout
 						{
 							select.data.remove((Object)new SelectLayout.Data(f.getFp()));
 						}
-						uitool.toos(uitool.mainThis,""+select.data.size());
 						uitool.popselect.show();
 					}
 				});
@@ -149,14 +148,8 @@ public class LayoutFileList extends LinearLayout
 		{
 			File f = data.get(position).getFp();
 			final ViewData vd = data.get(position);
-			uitool.toos(uitool.mainThis,f.getName());
 			if(!f.isDirectory())
 			{
-			/*	if(SelectLayout.isSelectFile())
-				{
-					vd.setSelect(!vd.isSelect());
-					notifyDataSetChanged();
-				}*/
 				return;
 			}
 			stackScroll.add(new Float(list.getFirstVisiblePosition()));
@@ -178,9 +171,11 @@ public class LayoutFileList extends LinearLayout
 						SelectLayout.setSelectFile(true);
 						d.setSelect(true);
 						final SelectLayout select = uitool.drawlayout.select;
-						select.data.remove((Object) new SelectLayout.Data(d.getFp()));
-						select.data.add(new SelectLayout.Data(d.getFp()));
-						uitool.toos(uitool.mainThis,""+select.data.size());
+						if(!d.getFp().isDirectory())
+						{
+							select.data.remove((Object) new SelectLayout.Data(d.getFp()));
+							select.data.add(new SelectLayout.Data(d.getFp()));
+						}
 						notifyDataSetChanged();
 						uitool.popselect.show();
 					}
@@ -190,7 +185,8 @@ public class LayoutFileList extends LinearLayout
 					@Override
 					public void onClick()
 					{
-						
+						// 我觉得把文件对象传递过去,打开操作用这个对象来确定好一点
+						new OpenFileStyle(uitool.mainThis,d.getFp()).show();
 					}
 				})
 				// 重命名
@@ -199,7 +195,8 @@ public class LayoutFileList extends LinearLayout
 					public void onClick()
 					{
 						final EditBox edit = new EditBox(getContext());
-						edit
+							edit
+							.setMessage(d.getFp().getName())
 							.setTitle("重命名")
 							.setLeft("取消")
 							.setRight("确认")
@@ -260,7 +257,43 @@ public class LayoutFileList extends LinearLayout
 					@Override
 					public void onClick()
 					{
-						
+						new Buttons()
+							.setCall(R.drawable.ic_move,new Buttons.OnClick(){
+								@Override
+								public void OnClick()
+								{
+									uitool.progerss.show();
+									new Thread(new Runnable(){
+										@Override
+										public void run()
+										{
+											List<LayoutFileList> v = uitool.pagerAdapter.view;
+											File fileTo = v.get(uitool.add.getPosition()).listadp.getFp();
+											File fp = d.getFp();
+											if(filetool.moveFile(fileTo,fp))
+											{
+												Message toas = new Message();
+												toas.what = uitool.TOAS;
+												toas.obj = "移动成功";
+												uitool.mainThis.UpdateUi.sendMessage(toas);
+											}
+											else
+											{
+												Message toas = new Message();
+												toas.what = uitool.TOAS;
+												toas.obj = "移动失败";
+												uitool.mainThis.UpdateUi.sendMessage(toas);
+											}
+											
+											Message msg = new Message();
+											msg.what = Progeress.DISMISS;
+											msg.obj = v;
+											uitool.mainThis.UpdateUi.sendMessage(msg);
+										}
+									}).start();
+								}
+							})
+							.setCancel(R.drawable.ic_exit,null);
 					}
 				})
 				// 复制
@@ -268,7 +301,39 @@ public class LayoutFileList extends LinearLayout
 					@Override
 					public void onClick()
 					{
-
+						new Buttons()
+							.setCall(R.drawable.ic_copy,new Buttons.OnClick(){
+								@Override
+								public void OnClick()
+								{
+									uitool.progerss.show();
+									new Thread(new Runnable(){
+										@Override
+										public void run()
+										{
+											List<LayoutFileList> view = uitool.pagerAdapter.view;
+											File fileTo = view.get(uitool.add.getPosition()).listadp.getFp();
+											File fp = d.getFp();
+											if(new File(fileTo,fp.getName())!=null&&new File(fileTo,fp.getName()).exists())
+											{
+												Message msg = new Message();
+												msg.what = uitool.TOAS;
+												msg.obj = "已有同名文件";
+												uitool.mainThis.UpdateUi.sendMessage(msg);
+											}
+											else
+											{
+												filetool.copyFile(fileTo,fp);
+											}
+											Message msg = new Message();
+											msg.what = Progeress.DISMISS;
+											msg.obj = view;
+											uitool.mainThis.UpdateUi.sendMessage(msg);
+										}
+									}).start();
+								}
+							})
+							.setCancel(R.drawable.ic_exit,null);
 					}
 				})
 				// 添加到书签
@@ -276,7 +341,57 @@ public class LayoutFileList extends LinearLayout
 					@Override
 					public void onClick()
 					{
-
+						final EditBox edit = new EditBox(uitool.mainThis);
+						edit.setTitle("请输入备注")
+							.setMessage("新建书签")
+							.setLeft("取消")
+							.setRight("保存")
+							.setRight(new EditBox.onButton(){
+								@Override
+								public void onClick()
+								{
+									if(d.getFp().isDirectory())
+									{
+										DriLayout.Data data = new DriLayout.Data
+										(
+											System.currentTimeMillis(),
+											edit.getMessage(),
+											d.getFp().getPath()
+										);
+										uitool.drawlayout.dri.data.add(data);
+										dbtool.addDri(data);
+									}
+									else
+									{
+										FileLayout.Data data = new FileLayout.Data
+										(
+											System.currentTimeMillis(),
+											edit.getMessage(),
+											d.getFp().getPath()
+										);
+										uitool.drawlayout.file.data.add(data);
+										dbtool.addFile(data);
+									}
+									//
+								}
+							})
+							.show();
+					}
+				})
+				// 压缩
+				.setZip(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						
+					}
+				})
+				// 发送
+				.setSend(new OperateFile.OnClick(){
+					@Override
+					public void onClick()
+					{
+						
 					}
 				})
 				.show();
@@ -327,7 +442,7 @@ public class LayoutFileList extends LinearLayout
 		
 		public void loadList()
 		{
-			if(fp==null)
+			if(fp==null||!fp.exists())
 			{
 				fp = new File("/storage/emulated/0");
 			}

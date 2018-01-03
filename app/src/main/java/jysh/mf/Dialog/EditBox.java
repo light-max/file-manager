@@ -61,6 +61,12 @@ public class EditBox extends Dialog implements View.OnClickListener
 	{
 		return message.getText().toString();
 	}
+	
+	public EditBox setMessage(String message)
+	{
+		this.message.setText(message);
+		return this;
+	}
 
 	@Override
 	public void onClick(View v)

@@ -59,6 +59,23 @@
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
 
+	<android.support.v7.widget.RecyclerView
+		android:layout_weight="1.0"
+		android:layout_height="0dp"
+		android:layout_width="match_parent"
+		android:id="@+id/drawlayout_drilist"
+		android:visibility="gone"/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_weight="1.0"
+		android:visibility="gone"
+		android:layout_height="0dp"
+		android:gravity="center"
+		android:text="你还没有添加目录书签"
+		android:textSize="25sp"
+		android:id="@+id/drawlayout_dritext"/>
+
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
@@ -75,6 +92,23 @@
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
+
+	<android.support.v7.widget.RecyclerView
+		android:layout_weight="1.0"
+		android:layout_height="0dp"
+		android:layout_width="match_parent"
+		android:id="@+id/drawlayout_filelist"
+		android:visibility="gone"/>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_weight="1.0"
+		android:visibility="gone"
+		android:layout_height="0dp"
+		android:gravity="center"
+		android:text="你还没有添加文件书签"
+		android:textSize="25sp"
+		android:id="@+id/drawlayout_filetext"/>
 
 	<TextView
 		android:layout_height="wrap_content"

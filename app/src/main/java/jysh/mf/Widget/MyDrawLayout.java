@@ -23,6 +23,14 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 		(
 			(RecyclerView)findViewById(R.id.drawlayout_selectlist)
 		);
+		dri = new DriLayout
+		(
+			(RecyclerView)findViewById(R.id.drawlayout_drilist)
+		);
+		file = new FileLayout
+		(
+			(RecyclerView)findViewById(R.id.drawlayout_filelist)
+		);
 	}
 	
 	private static final int id[] = new int[]{
@@ -32,10 +40,14 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 		R.id.drawlayout_set
 	};
 	private static final int textId[] = new int[]{
-		R.id.drawlayout_selecttext
+		R.id.drawlayout_selecttext,
+		R.id.drawlayout_dritext,
+		R.id.drawlayout_filetext,
 	};
 	private TextView view[] = new TextView[id.length];
 	public SelectLayout select;
+	public DriLayout dri;
+	public FileLayout file;
 	public int showView = 0;
 	
 	@Override
@@ -52,6 +64,8 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 			findViewById(textId[i]).setVisibility(View.GONE);
 		}
 		select.view.setVisibility(View.GONE);
+		dri.view.setVisibility(View.GONE);
+		file.view.setVisibility(View.GONE);
 		switch(id)
 		{
 			case R.id.drawlayout_select:
@@ -64,6 +78,29 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 					select.view.setVisibility(View.VISIBLE);
 					select.notifyDataSetChanged();
 				}
+				break;
+			case R.id.drawlayout_dri:
+				if(dri.data.size()==0)
+				{
+					findViewById(textId[1]).setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					dri.view.setVisibility(View.VISIBLE);
+					dri.notifyDataSetChanged();
+				}
+				break;
+			case R.id.drawlayout_file:
+				if(file.data.size()==0)
+				{
+					findViewById(textId[2]).setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					file.view.setVisibility(View.VISIBLE);
+					file.notifyDataSetChanged();
+				}
+				break;
 		}
 	}
 	

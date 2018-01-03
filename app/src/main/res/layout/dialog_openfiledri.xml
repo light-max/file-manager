@@ -15,7 +15,7 @@
 		android:layout_marginTop="10dp"/>
 
 	<View
-		android:layout_height="3dp"
+		android:layout_height="1dp"
 		android:layout_width="300dp"
 		android:background="#00659F"/>
 
@@ -61,7 +61,7 @@
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_rename"/>
-	
+
 	<View
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="1dp"
@@ -125,6 +125,38 @@
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_addbook"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="压缩文件"
+		android:paddingLeft="15dp"
+		android:paddingTop="7dp"
+		android:paddingBottom="7dp"
+		android:textSize="18sp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialogopenfiledri_zip"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+	
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="发送"
+		android:paddingLeft="15dp"
+		android:paddingTop="7dp"
+		android:paddingBottom="7dp"
+		android:textSize="18sp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialogopenfiledri_send"/>
 
 	<View
 		android:background="?android:attr/dividerVertical"

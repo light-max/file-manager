@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:orientation="horizontal"
+	android:paddingBottom="9dp"
+	android:paddingTop="5dp"
+	android:paddingLeft="7dp"
+	android:paddingRight="7dp"
+	android:background="@drawable/popbackground">
+
+	<LinearLayout
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:background="@drawable/radiusxx">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="zip压缩"
+			android:textSize="17sp"
+			android:paddingLeft="15dp"
+			android:paddingBottom="6dp"
+			android:paddingTop="6dp"
+			android:background="@drawable/textbutton"
+			android:id="@+id/pop_selectmenu_zip"/>
+
+		<View
+			android:background="?android:attr/dividerVertical"
+			android:layout_height="1dp"
+			android:layout_width="match_parent"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="属性"
+			android:textSize="17sp"
+			android:paddingLeft="15dp"
+			android:paddingBottom="6dp"
+			android:paddingTop="6dp"
+			android:background="@drawable/textbutton"
+			android:id="@+id/pop_selectmenu_data"/>
+
+		<View
+			android:background="?android:attr/dividerVertical"
+			android:layout_height="1dp"
+			android:layout_width="match_parent"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="发送"
+			android:textSize="17sp"
+			android:paddingLeft="15dp"
+			android:paddingBottom="6dp"
+			android:paddingTop="6dp"
+			android:background="@drawable/textbutton"
+			android:id="@+id/pop_selectmenu_send"/>
+
+		<View
+			android:background="?android:attr/dividerVertical"
+			android:layout_height="1dp"
+			android:layout_width="match_parent"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

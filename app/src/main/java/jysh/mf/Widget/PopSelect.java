@@ -9,6 +9,7 @@ import jysh.mf.*;
 import jysh.mf.Dialog.*;
 import jysh.mf.Util.*;
 import android.os.*;
+import android.graphics.drawable.*;
 
 public class PopSelect extends LinearLayout implements View.OnClickListener
 {
@@ -55,7 +56,7 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 			{
 				new MessageBox(getContext())
 					.setTitle("移动文件")
-					.setMessage("(此操作无法逆转，请慎重操作)")
+					.setMessage("你确定要把这些文件移动在这个\n目录吗")
 					.setLeft("取消")
 					.setRight("确认移动")
 					.setRight(new MessageBox.onButton(){
@@ -121,7 +122,15 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 			@Override
 			public void onClick()
 			{
-				
+				PopupWindow pop = new PopupWindow
+				(
+					new PopSelectMenu(getContext(),null),
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT
+				);
+				pop.setBackgroundDrawable(new BitmapDrawable());
+				pop.setFocusable(true);
+				pop.showAsDropDown(findViewById(id[5]),0,-500);
 			}
 		};
 	}

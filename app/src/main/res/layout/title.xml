@@ -7,12 +7,13 @@
 	android:gravity="center"
 	android:background="#00659F">
 
-	<ImageButton
-		style="?android:attr/buttonBarButtonStyle"
+	<ImageView
 		android:layout_height="40dp"
 		android:layout_width="40dp"
 		android:src="@drawable/ic_menu1"
-		android:id="@+id/title_imagebutton_drawlayout"/>
+		android:id="@+id/title_imagebutton_drawlayout"
+		android:padding="10dp"
+		android:background="@drawable/imagebutton"/>
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/title_recyclerview_titlelist"
@@ -21,12 +22,13 @@
 		android:layout_height="40dp"
 		android:layout_width="0dp"/>
 
-	<ImageButton
-		style="?android:attr/buttonBarButtonStyle"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:src="@android:drawable/ic_menu_close_clear_cancel"
-		android:id="@+id/title_imagebutton_openmenu"/>
+	<ImageView
+		android:layout_height="40dp"
+		android:layout_width="40dp"
+		android:src="@drawable/ic_menu"
+		android:id="@+id/title_imagebutton_openmenu"
+		android:padding="5dp"
+		android:background="@drawable/imagebutton"/>
 
 </LinearLayout>
 

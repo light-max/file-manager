@@ -43,6 +43,10 @@ public class OperateFile extends Dialog implements View.OnClickListener
 			copy.onClick();
 		else if(id==this.id[6]&&addbook!=null)
 			addbook.onClick();
+		else if(id==this.id[7]&&zip!=null)
+			zip.onClick();
+		else if(id==this.id[8]&&send!=null)
+			send.onClick();
 		dismiss();
 	}
 	
@@ -54,6 +58,8 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		R.id.dialogopenfiledri_move,
 		R.id.dialogopenfiledri_copy,
 		R.id.dialogopenfiledri_addbook,
+		R.id.dialogopenfiledri_zip,
+		R.id.dialogopenfiledri_send,
 	};
 	
 	static public interface OnClick
@@ -61,7 +67,7 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		public void onClick();
 	}
 	
-	private OnClick select,open,rename,delete,move,copy,addbook;
+	private OnClick select,open,rename,delete,move,copy,addbook,zip,send;
 	
 	public OperateFile setSelect(OnClick select)
 	{
@@ -102,6 +108,18 @@ public class OperateFile extends Dialog implements View.OnClickListener
 	public OperateFile setAddbook(OnClick addbook)
 	{
 		this.addbook = addbook;
+		return this;
+	}
+	
+	public OperateFile setZip(OnClick zip)
+	{
+		this.zip = zip;
+		return this;
+	}
+	
+	public OperateFile setSend(OnClick send)
+	{
+		this.send = send;
 		return this;
 	}
 }

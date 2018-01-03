@@ -14,7 +14,7 @@ public class filetool
 {
 	public static final String txt = "(.*)\\.txt$";
 	public static final String mp3 = "(.*)\\.(?:mp3|wav)$";
-	public static final String code ="(.*)\\.(?:cpp|c|html|java|xml|js|css|php|sh|s|h)$";
+	public static final String code ="(.*)\\.(?:cpp|c|java|xml|js|css|php|sh|s|h)$";
 	public static final String img = "(.*)\\.(?:jpg|bmp|png|gif|jpeg|ico)$";
 	public static final String mp4 = "(.*)\\.(?:mp4|mkv)$";
 	public static final String sys = "(.*)\\.(?:ini)$";
@@ -23,8 +23,7 @@ public class filetool
 	public static final String apk = "(.*)\\.apk$";
 	public static final String ppt = "(.*)\\.(?:ppt|pdf)$";
 	public static final String doc = "(.*)\\.(?:doc|dox|docx)$";
-	
-	public static native void fun();
+	public static final String web = "(.*)\\.(?:htm|html)$";
 	
 	public static int getFiconRes(String fname)
 	{
@@ -39,6 +38,7 @@ public class filetool
 		if(fname.matches(apk)) return R.drawable.ic_null;
 		if(fname.matches(ppt)) return R.drawable.ic_null;
 		if(fname.matches(doc)) return R.drawable.ic_null;
+		if(fname.matches(web)) return R.drawable.ic_web;
 		return R.drawable.ic_null;
 	}
 	
@@ -123,65 +123,6 @@ public class filetool
 	
 	public static File fileTo = null;
 	
-/*	public static void coypyFile()
-	{
-		final List<LayoutFileList> view = uitool.pagerAdapter.view;
-		
-		// 目标路径
-		fileTo = view.get(uitool.add.getPosition()).listadp.getFp();
-		
-		new Thread(new Runnable(){
-			@Override
-			public void run()
-			{
-				List<File> fp = getFile();
-				// 开始复制
-				for(int u = 0;u < fp.size();u++)
-				{
-					try
-					{
-						Thread.sleep(5);
-					}
-					catch (InterruptedException e)
-					{}
-					File i = fp.get(u);
-					File o = new File(fileTo,i.getName());
-					byte byt[] = new byte[(int)i.length()];
-					try{
-						o.createNewFile();
-					}catch (IOException e){
-						e.printStackTrace();
-					}
-					try{
-						FileInputStream in = new FileInputStream(i);
-						FileOutputStream out = new FileOutputStream(o);
-						try
-						{
-							in.read(byt);
-							out.write(byt);
-						}
-						catch (IOException e)
-						{
-							e.printStackTrace();
-						}
-					}
-					catch (FileNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-				}
-				// 刷新界面
-				Message msg = new Message();
-				msg.what = Progeress.DISMISS;
-				msg.obj = view;
-				uitool.mainThis.UpdateUi.sendMessage(msg);
-			}
-		}).start();
-		
-		// 刷新界面
-		
-	}
-	*/
 	public static void copyFile() {
 		final List<LayoutFileList> view = uitool.pagerAdapter.view;
 
@@ -196,7 +137,7 @@ public class filetool
 					for (int u = 0; u < fp.size(); u++) {
 						File i = fp.get(u);
 						File o = new File(fileTo, i.getName());
-						byte byt[] = new byte[1024];
+						byte byt[] = new byte[1024 * 1024];
 						BufferedInputStream inputStream = null;
 						BufferedOutputStream outputStream = null;
 						try {
@@ -236,9 +177,6 @@ public class filetool
 					uitool.mainThis.UpdateUi.sendMessage(msg);
 				}
 			}).start();
-
-		// 刷新界面
-
 	}
 	
 	public static void mkDri(File fp,File path)
@@ -308,5 +246,62 @@ public class filetool
 			fp.add(f.getFp());
 		}
 		return fp;
+	}
+	
+	public static boolean moveFile(File moveTo,File fp)
+	{
+		return fp.renameTo(new File(moveTo,fp.getName()));
+	}
+	
+	public static void copyFile(File to,File fp)
+	{
+		if(fp.isDirectory())
+		{
+			File toName = new File(to,fp.getName());
+			toName.mkdir();
+			for(File f:fp.listFiles())
+			{
+				copyFile(toName,f);
+			}
+			return;
+		}
+		
+		byte byt[] = new byte[1024 * 1024];
+		int lengh;
+		BufferedInputStream in = null;
+		BufferedOutputStream out = null;
+		try
+		{
+			in = new BufferedInputStream(new FileInputStream(fp));
+			out = new BufferedOutputStream(new FileOutputStream(new File(to,fp.getName())));
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		try
+		{
+			while ((lengh = in.read(byt)) != -1)
+			{
+				out.write(byt, 0, lengh);
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				out.flush();
+				out.close();
+				in.close();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 }

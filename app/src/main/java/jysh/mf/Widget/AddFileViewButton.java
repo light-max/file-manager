@@ -142,10 +142,21 @@ public class AddFileViewButton implements View.OnClickListener
 		edit.show();
 	}
 	
-	private void opentitle()
+	public void opentitle()
 	{
 		uitool.apptitle.add(AppTitile.DRITITLE);
 		uitool.pagerAdapter.addView(new LayoutFileList(context,null));
+		this.setPosition(uitool.apptitle.listAdapt.data.size() - 1);
+		uitool.apptitle.listAdapt.notifyDataSetChanged();
+		uitool.pagerAdapter.notifyDataSetChanged();
+		uitool.apptitle.setPosition(getPosition());
+		uitool.pagerAdapter.setPosition(getPosition());
+	}
+	
+	public void opentitle(LayoutFileList view)
+	{
+		uitool.apptitle.add(AppTitile.DRITITLE);
+		uitool.pagerAdapter.addView(view);
 		this.setPosition(uitool.apptitle.listAdapt.data.size() - 1);
 		uitool.apptitle.listAdapt.notifyDataSetChanged();
 		uitool.pagerAdapter.notifyDataSetChanged();

@@ -25,8 +25,8 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 		listAdapt = new TitleListAdapter();
 		titleList.setAdapter(listAdapt);
 		
-		drawLayout = (ImageButton)findViewById(R.id.title_imagebutton_drawlayout);
-		openmMenu = (ImageButton)findViewById(R.id.title_imagebutton_openmenu);
+		drawLayout = (ImageView)findViewById(R.id.title_imagebutton_drawlayout);
+		openmMenu = (ImageView)findViewById(R.id.title_imagebutton_openmenu);
 		drawLayout.setOnClickListener(this);
 		openmMenu.setOnClickListener(this);
 	}
@@ -39,8 +39,8 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 	
 	private RecyclerView titleList;
 	public TitleListAdapter listAdapt;
-	private ImageButton drawLayout;
-	private ImageButton openmMenu;
+	private ImageView drawLayout;
+	private ImageView openmMenu;
 	public static final String DRITITLE = "目录标签";
 
 	@Override

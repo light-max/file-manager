@@ -15,9 +15,14 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+		dbtool.InitDataBase();
         setContentView(R.layout.main);
 		uitool.mainThis = this;
 		uitool.InitViewWidget(this);
+		
+		// 自定义布局不这样就会闪退
+		uitool.drawlayout.dri.loadDatabase();
+		uitool.drawlayout.file.loadDatabase();
     }
 
 	@Override
@@ -52,6 +57,9 @@ public class MainActivity extends Activity
 							v.listadp.notifyDataSetChanged();
 						}
 					}
+					break;
+				case uitool.TOAS:
+					uitool.toos(uitool.mainThis,(String)msg.obj);
 					break;
 			}
 		}
