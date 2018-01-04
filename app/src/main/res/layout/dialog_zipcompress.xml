@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx"
+	android:focusable="true">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal">
+
+		<ImageView
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:src="@drawable/ic_exit"
+			android:background="@drawable/imagebutton"
+			android:padding="3dp"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="5dp"
+			android:id="@+id/dialog_zipcompress_exit"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="zip文件压缩..."
+			android:layout_gravity="bottom"
+			android:layout_marginLeft="10dp"
+			android:textSize="25sp"
+			android:layout_marginBottom="2dp"
+			android:textColor="#000000"/>
+
+	</LinearLayout>
+
+	<View
+		android:layout_height="3dp"
+		android:layout_width="350dp"
+		android:background="#00569F"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:layout_marginTop="5dp"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:text="保存路径"
+			android:textSize="20sp"
+			android:layout_marginLeft="10dp"/>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:inputType="textPersonName"
+			android:layout_width="0dp"
+			android:ems="10"
+			android:layout_weight="1.0"
+			android:id="@+id/dialog_zipcompress_path"
+			android:layout_marginRight="10dp"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_width="wrap_content"
+			android:text="文件名称"
+			android:textSize="20sp"
+			android:layout_marginLeft="10dp"/>
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:inputType="textPersonName"
+			android:layout_width="0dp"
+			android:ems="10"
+			android:layout_weight="1.0"
+			android:id="@+id/dialog_zipcompress_name"
+			android:layout_marginRight="10dp"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<RadioButton
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/dialog_zipcompress_radio1"
+			android:text="保存到当前目录"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<RadioButton
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/dialog_zipcompress_radio2"
+			android:text="另外打开一个"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical">
+
+		<RadioButton
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_marginLeft="10dp"
+			android:id="@+id/dialog_zipcompress_radio3"
+			android:text="从目录书签选择"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="开始"
+		android:background="@drawable/textbutton"
+		android:gravity="center"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:textColor="#239C16"
+		android:textSize="18sp"
+		android:textStyle="bold"
+		android:id="@+id/dialog_zipcompress_start"/>
+
+</LinearLayout>
+

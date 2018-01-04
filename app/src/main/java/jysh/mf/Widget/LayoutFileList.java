@@ -383,7 +383,7 @@ public class LayoutFileList extends LinearLayout
 					@Override
 					public void onClick()
 					{
-						
+						new ZipCompress(getContext()).setFp(d.getFp()).show();
 					}
 				})
 				// 发送

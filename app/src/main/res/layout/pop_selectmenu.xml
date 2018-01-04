@@ -59,11 +59,6 @@
 			android:background="@drawable/textbutton"
 			android:id="@+id/pop_selectmenu_send"/>
 
-		<View
-			android:background="?android:attr/dividerVertical"
-			android:layout_height="1dp"
-			android:layout_width="match_parent"/>
-
 	</LinearLayout>
 
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.graphics.*;
 import jysh.mf.Util.*;
 import android.app.*;
 import jysh.mf.Dialog.*;
+import android.graphics.drawable.*;
 
 public class AppTitile extends LinearLayout implements View.OnClickListener
 {
@@ -46,7 +47,25 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		
+		switch(v.getId())
+		{
+			case R.id.title_imagebutton_drawlayout:
+				uitool.mainDrawer.openDrawer(Gravity.START);
+				break;
+			case R.id.title_imagebutton_openmenu:
+				PopMenu menu = null;
+				PopupWindow pop = new PopupWindow
+				(
+					menu = new PopMenu(getContext(),null),
+					GridLayout.LayoutParams.WRAP_CONTENT,
+					GridLayout.LayoutParams.WRAP_CONTENT
+				);
+				pop.setBackgroundDrawable(new BitmapDrawable());
+				pop.setFocusable(true);
+				pop.showAtLocation(uitool.mainDrawer,Gravity.TOP | Gravity.RIGHT,0,60);
+				menu.setPop(pop);
+				break;
+		}
 	}
 	
 	static public class TitleListAdapter extends RecyclerView.Adapter<TitleListAdapter.ViewHolder>

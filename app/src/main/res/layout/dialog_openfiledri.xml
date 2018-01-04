@@ -15,7 +15,7 @@
 		android:layout_marginTop="10dp"/>
 
 	<View
-		android:layout_height="1dp"
+		android:layout_height="3dp"
 		android:layout_width="300dp"
 		android:background="#00659F"/>
 
@@ -32,7 +32,7 @@
 
 	<View
 		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
+		android:layout_height="0dp"
 		android:layout_width="match_parent"/>
 
 	<TextView
@@ -146,7 +146,7 @@
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
-	
+
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"

@@ -122,15 +122,17 @@ public class PopSelect extends LinearLayout implements View.OnClickListener
 			@Override
 			public void onClick()
 			{
+				PopSelectMenu menu = null;
 				PopupWindow pop = new PopupWindow
 				(
-					new PopSelectMenu(getContext(),null),
+					menu = new PopSelectMenu(getContext(),null),
 					ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT
 				);
 				pop.setBackgroundDrawable(new BitmapDrawable());
 				pop.setFocusable(true);
 				pop.showAsDropDown(findViewById(id[5]),0,-500);
+				menu.setPop(pop);
 			}
 		};
 	}
