@@ -2,11 +2,16 @@ package jysh.mf.Dialog;
 
 import android.app.*;
 import android.content.*;
+import android.support.v7.widget.*;
 import android.view.*;
-import java.io.*;
-import jysh.mf.*;
 import android.widget.*;
+import android.widget.GridLayout.*;
+import java.io.*;
+import java.util.*;
+import jysh.mf.*;
 import jysh.mf.Util.*;
+import jysh.mf.Widget.*;
+import android.os.*;
 
 public class ZipCompress extends Dialog implements View.OnClickListener
 {
@@ -26,6 +31,8 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		
 		path = (EditText)findViewById(id_path);
 		name = (EditText)findViewById(id_name);
+		
+		setCompressDri();
 	}
 	
 	private File fp = null;
@@ -33,6 +40,7 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 	public ZipCompress setFp(File fp)
 	{
 		this.fp = fp;
+		setCompressDri();
 		return this;
 	}
 	
@@ -47,7 +55,7 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 	private int id_path = R.id.dialog_zipcompress_path;
 	private int id_name = R.id.dialog_zipcompress_name;
 	
-	private EditText path,name;
+	public EditText path,name;
 	
 	@Override
 	public void onClick(View v)
@@ -59,9 +67,25 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		}
 		if(v.getId()==start)
 		{
+			start();
 			return;
 		}
 		isRadioButton(v.getId());
+		if(v.getId()==id[0])
+		{
+			setCompressDri();
+			return;
+		}
+		if(v.getId()==id[1])
+		{
+			setOpenDri();
+			return;
+		}
+		if(v.getId()==id[2])
+		{
+			setSelectDri();
+			return;
+		}
 	}
 	
 	private void isRadioButton(int id)
@@ -77,5 +101,175 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 			radio[i].setChecked(false);
 		}
 		radio[onAt].setChecked(true);
+	}
+	
+	private void setCompressDri()
+	{
+		LayoutFileList listview = uitool.pagerAdapter.get(uitool.add.getPosition());
+		File fp = listview.listadp.getFp();
+		String fname = "新建压缩包";
+		if(this.fp!=null)
+		{
+			fname = this.fp.getName();
+		}
+		File to = new File(fp,fname+".zip");
+		path.setText(fp.getPath());
+		name.setText(to.getName());
+		if(to.exists())
+		{
+			int i = 1;
+			for(int j = 0;j < fp.listFiles().length;j++)
+			{
+				if((fname+"("+i+").zip").equals(fp.listFiles()[j].getName()))
+				{
+					i++;
+					j = 0;
+				}
+			}
+			name.setText(fname+"("+i+").zip");
+		}
+	}
+	
+	private void setOpenDri()
+	{
+		new RootSelect(getContext()).setRootDialog(this).show();
+	}
+	
+	private void setSelectDri()
+	{
+		new DriBookSelect(getContext()).setRootDialog(this).show();
+	}
+	
+	public void setPathAndName(File dri)
+	{
+		String fname = "新建压缩包";
+		if(this.fp!=null)
+		{
+			fname = this.fp.getName();
+		}
+		File fp = dri;
+		File to = new File(fp,fname+".zip");
+		path.setText(fp.getPath());
+		name.setText(to.getName());
+		if(to.exists())
+		{
+			int i = 1;
+			for(int j = 0;j < fp.listFiles().length;j++)
+			{
+				if((fname+"("+i+").zip").equals(fp.listFiles()[j].getName()))
+				{
+					i++;
+					j = 0;
+				}
+			}
+			name.setText(fname+"("+i+").zip");
+		}
+	}
+	
+	private File to = null;
+	private void start()
+	{
+		to = new File(path.getText().toString());
+		if(!to.isDirectory())
+		{
+			uitool.toos(uitool.mainThis,"无效的路径");
+			return;
+		}
+		to = new File(path.getText().toString(),name.getText().toString());
+		if(to.exists())
+		{
+			uitool.toos(uitool.mainThis,"已有同名文件");
+			return;
+		}
+		if(fp!=null)
+		{
+			for(File _to = to; !_to.getPath().equals("/"); _to = _to.getParentFile())
+			{
+				if(!_to.equals(fp))
+				{
+					continue;
+				}
+				uitool.toos(uitool.mainThis,"保存路径不能在源文件夹内");
+				return;
+			}
+			uitool.progerss.show();
+			new Thread(new Runnable(){
+				@Override
+				public void run()
+				{
+					try
+					{
+						ziptool.zipCompress(to, fp);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+					Message msg = new Message();
+					msg.what = Progeress.DISMISS;
+					msg.obj = uitool.pagerAdapter.view;
+					uitool.mainThis.UpdateUi.sendMessage(msg);
+					
+					Message clos = new Message();
+					clos.what = uitool.CLOSE_DIALOG;
+					clos.obj = ZipCompress.this;
+					uitool.mainThis.UpdateUi.sendMessage(clos);
+					
+					Message toas = new Message();
+					toas.what = uitool.TOAS;
+					toas.obj = "已完成";
+					uitool.mainThis.UpdateUi.sendMessage(toas);
+				}
+			}).start();
+			return;
+		}
+		final List<File> flist = new ArrayList<>();
+		String error = "";
+		int e = 0;
+		for(SelectLayout.Data d:uitool.drawlayout.select.data)
+		{
+			if(d.getFp().isDirectory() || !d.getFp().canRead() || !d.getFp().exists())
+			{
+				error += d.getFp().getName()+"\n";
+				e++;
+				continue;
+			}
+			flist.add(d.getFp());
+		}
+		uitool.drawlayout.select.data.clear();
+		if(e!=0)
+		{
+			error = "发生了"+e+"个错误\n"+error;
+			error = error + "不可读或者不存在";
+		}
+		uitool.progerss.show();
+		new Thread(new Runnable(){
+			@Override
+			public void run()
+			{
+				try
+				{
+					ziptool.zipCompress(to, flist);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+				Message msg = new Message();
+				msg.what = Progeress.DISMISS;
+				msg.obj = uitool.pagerAdapter.view;
+				uitool.mainThis.UpdateUi.sendMessage(msg);
+
+				Message clos = new Message();
+				clos.what = uitool.CLOSE_DIALOG;
+				clos.obj = ZipCompress.this;
+				uitool.mainThis.UpdateUi.sendMessage(clos);
+
+				Message toas = new Message();
+				toas.what = uitool.TOAS;
+				toas.obj = "已完成";
+				uitool.mainThis.UpdateUi.sendMessage(toas);
+			}
+		}).start();
 	}
 }

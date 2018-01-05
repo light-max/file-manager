@@ -14,6 +14,7 @@ import jysh.mf.Dialog.*;
 public class uitool
 {
 	static public final int TOAS = 3;
+	static public final int CLOSE_DIALOG = 4;
 	
 	static public MainActivity mainThis;
 	
@@ -49,6 +50,7 @@ public class uitool
 		popselect = (PopSelect)context.findViewById(R.id.main_popselect);
 		
 		progerss = new Progeress(context);
+		
 	}
 	
 	static public boolean deleteTitleList(int position)

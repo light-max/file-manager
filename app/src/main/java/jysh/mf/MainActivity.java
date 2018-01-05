@@ -61,6 +61,9 @@ public class MainActivity extends Activity
 				case uitool.TOAS:
 					uitool.toos(uitool.mainThis,(String)msg.obj);
 					break;
+				case uitool.CLOSE_DIALOG:
+					((Dialog)msg.obj).dismiss();
+					break;
 			}
 		}
 	};

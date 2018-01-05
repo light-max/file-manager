@@ -27,7 +27,8 @@
 			android:layout_width="wrap_content"
 			android:text="shandr/0/55511//33"
 			android:textSize="15sp"
-			android:id="@+id/item_dribook_path"/>
+			android:id="@+id/item_dribook_path"
+			android:textColor="#6A6A6A"/>
 
 	</LinearLayout>
 

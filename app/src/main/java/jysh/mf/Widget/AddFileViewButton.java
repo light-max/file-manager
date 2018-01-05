@@ -171,6 +171,25 @@ public class AddFileViewButton implements View.OnClickListener
 	
 	private void savetitle()
 	{
-		
+		final EditBox edit = new EditBox(uitool.mainThis);
+		edit.setTitle("请输入备注")
+			.setMessage("新建书签")
+			.setLeft("取消")
+			.setRight("保存")
+			.setRight(new EditBox.onButton(){
+				@Override
+				public void onClick()
+				{
+					DriLayout.Data data = new DriLayout.Data
+					(
+						System.currentTimeMillis(),
+						edit.getMessage(),
+						uitool.pagerAdapter.get(uitool.add.getPosition()).listadp.getFp().getPath()
+					);
+					uitool.drawlayout.dri.data.add(data);
+					dbtool.addDri(data);
+				}
+			})
+			.show();
 	}
 }

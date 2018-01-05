@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="500dp"
+		android:orientation="vertical"
+		android:background="@drawable/radiusxx"
+		android:gravity="center">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="340dp"
+			android:text="返回上一级"
+			android:background="@drawable/textbutton"
+			android:textColor="#127F0D"
+			android:paddingBottom="5dp"
+			android:gravity="center"
+			android:paddingTop="10dp"
+			android:textSize="20sp"
+			android:id="@+id/dialog_rootselect_return"/>
+
+		<View
+			android:layout_height="3dp"
+			android:layout_width="match_parent"
+			android:background="#00569F"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="left"
+			android:layout_marginLeft="10dp"
+			android:layout_marginRight="10dp"
+			android:id="@+id/dialog_rootselect_path"
+			android:textColor="#7B7B7B"/>
+
+		<View
+			android:layout_height="1dp"
+			android:layout_width="match_parent"
+			android:background="#C6C6C6"/>
+
+		<ListView
+			android:layout_height="0dp"
+			android:layout_width="match_parent"
+			android:divider="#C8C8C8"
+			android:dividerHeight="0.5dp"
+			android:layout_weight="1.0"
+			android:id="@+id/dialog_rootselect_list"/>
+
+		<View
+			android:layout_height="3dp"
+			android:layout_width="match_parent"
+			android:background="#00569F"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:text="选择"
+			android:gravity="center"
+			android:paddingBottom="10dp"
+			android:paddingTop="5dp"
+			android:textSize="20sp"
+			android:textColor="#269414"
+			android:id="@+id/dialog_rootselect_select"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+
