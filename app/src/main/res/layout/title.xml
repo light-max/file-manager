@@ -13,7 +13,8 @@
 		android:src="@drawable/ic_menu1"
 		android:id="@+id/title_imagebutton_drawlayout"
 		android:padding="10dp"
-		android:background="@drawable/imagebutton"/>
+		android:background="@drawable/imagebutton"
+		android:tint="#ffffff"/>
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/title_recyclerview_titlelist"

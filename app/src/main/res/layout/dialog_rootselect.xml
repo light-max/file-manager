@@ -65,7 +65,8 @@
 			android:paddingTop="5dp"
 			android:textSize="20sp"
 			android:textColor="#269414"
-			android:id="@+id/dialog_rootselect_select"/>
+			android:id="@+id/dialog_rootselect_select"
+			android:background="@drawable/textbutton"/>
 
 	</LinearLayout>
 

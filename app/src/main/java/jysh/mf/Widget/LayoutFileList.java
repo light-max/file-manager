@@ -147,9 +147,9 @@ public class LayoutFileList extends LinearLayout
 		public void onItemClick(AdapterView<?> p1, View p2, int position, long p4)
 		{
 			File f = data.get(position).getFp();
-			final ViewData vd = data.get(position);
 			if(!f.isDirectory())
 			{
+				filetool.fileOpens(getContext(),f);
 				return;
 			}
 			stackScroll.add(new Float(list.getFirstVisiblePosition()));

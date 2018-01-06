@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="解压"
+		android:paddingBottom="7dp"
+		android:paddingTop="11dp"
+		android:textColor="#000000"
+		android:textSize="17sp"
+		android:gravity="center"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_zipoperareselect_decompression"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="130dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="查看"
+		android:paddingBottom="11dp"
+		android:paddingTop="7dp"
+		android:textColor="#000000"
+		android:textSize="17sp"
+		android:gravity="center"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_zipoperareselect_look"/>
+
+</LinearLayout>
+

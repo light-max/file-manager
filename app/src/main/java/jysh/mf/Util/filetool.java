@@ -1,14 +1,14 @@
 package jysh.mf.Util;
 
+import android.content.*;
 import android.graphics.*;
+import android.os.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
 import jysh.mf.*;
-import jysh.mf.Widget.*;
-import android.os.*;
 import jysh.mf.Dialog.*;
-import android.util.*;
+import jysh.mf.Widget.*;
 
 public class filetool
 {
@@ -302,6 +302,15 @@ public class filetool
 			{
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public static void fileOpens(Context context,File fp)
+	{
+		String name = fp.getName();
+		if(name.matches(zip))
+		{
+			new ZipOperateSelect(context).setFp(fp).show();
 		}
 	}
 }

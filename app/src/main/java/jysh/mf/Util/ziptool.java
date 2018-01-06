@@ -3,6 +3,7 @@ package jysh.mf.Util;
 import java.io.*;
 import java.util.*;
 import java.util.zip.*;
+import android.util.*;
 
 public class ziptool
 {
@@ -29,7 +30,7 @@ public class ziptool
 		out.close();
 	}
 
-	public static void zipCompress(ZipOutputStream out,File f,String base)throws Exception
+	private static void zipCompress(ZipOutputStream out,File f,String base)throws Exception
 	{
 		if(f.isDirectory())
 		{
@@ -63,5 +64,35 @@ public class ziptool
 		}
 	}
 	
-	
+	// 文件解压，调用函数前文件夹未创建
+	// to保存路径，带文件夹名
+	// fp源文件
+	public static void zipDecompression(File to,File fp)throws Exception
+	{
+		ZipInputStream inputStream = new ZipInputStream(new FileInputStream(fp));
+		ZipEntry entry = inputStream.getNextEntry();
+		ZipFile zipFile = new ZipFile(fp);
+		to.mkdir();
+		do{
+		//	Log.e("Entry","文件路径:"+entry.getName());
+			if(entry.isDirectory())
+			{
+				new File(to,entry.getName()).mkdir();
+				continue;
+			}
+			FileOutputStream out = new FileOutputStream(new File(to,entry.getName()));
+			InputStream in = zipFile.getInputStream(entry);
+			int count = 0;
+			byte[] byt = new byte[1024 * 1024];
+			while ((count = in.read(byt)) != -1)
+			{
+				out.write(byt, 0, count);
+			}
+			out.flush();
+			out.close();
+			in.close();
+		}while((entry = inputStream.getNextEntry()) != null);
+		inputStream.close();
+		zipFile.close();
+	}
 }

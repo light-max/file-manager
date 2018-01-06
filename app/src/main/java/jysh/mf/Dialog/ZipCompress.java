@@ -32,15 +32,15 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		path = (EditText)findViewById(id_path);
 		name = (EditText)findViewById(id_name);
 		
-		setCompressDri();
+		setDri();
 	}
 	
-	private File fp = null;
+	public File fp = null;
 	
 	public ZipCompress setFp(File fp)
 	{
 		this.fp = fp;
-		setCompressDri();
+		setDri();
 		return this;
 	}
 	
@@ -73,7 +73,7 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		isRadioButton(v.getId());
 		if(v.getId()==id[0])
 		{
-			setCompressDri();
+			setDri();
 			return;
 		}
 		if(v.getId()==id[1])
@@ -103,7 +103,7 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		radio[onAt].setChecked(true);
 	}
 	
-	private void setCompressDri()
+	public void setDri()
 	{
 		LayoutFileList listview = uitool.pagerAdapter.get(uitool.add.getPosition());
 		File fp = listview.listadp.getFp();
@@ -118,9 +118,10 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		if(to.exists())
 		{
 			int i = 1;
-			for(int j = 0;j < fp.listFiles().length;j++)
+			File[] listFiles = fp.listFiles();
+			for(int j = 0;j < listFiles.length;j++)
 			{
-				if((fname+"("+i+").zip").equals(fp.listFiles()[j].getName()))
+				if((fname+"("+i+").zip").equals(listFiles[j].getName()))
 				{
 					i++;
 					j = 0;
@@ -154,9 +155,10 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		if(to.exists())
 		{
 			int i = 1;
-			for(int j = 0;j < fp.listFiles().length;j++)
+			File[] listFiles = fp.listFiles();
+			for(int j = 0;j < listFiles.length;j++)
 			{
-				if((fname+"("+i+").zip").equals(fp.listFiles()[j].getName()))
+				if((fname+"("+i+").zip").equals(listFiles[j].getName()))
 				{
 					i++;
 					j = 0;
@@ -166,8 +168,8 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		}
 	}
 	
-	private File to = null;
-	private void start()
+	public File to = null;
+	public void start()
 	{
 		to = new File(path.getText().toString());
 		if(!to.isDirectory())
@@ -205,6 +207,12 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 					{
 						e.printStackTrace();
 					}
+					
+					if(close!=null)
+					{
+						close.close();
+					}
+					
 					Message msg = new Message();
 					msg.what = Progeress.DISMISS;
 					msg.obj = uitool.pagerAdapter.view;
@@ -255,6 +263,12 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 				{
 					e.printStackTrace();
 				}
+				
+				if(close!=null)
+				{
+					close.close();
+				}
+				
 				Message msg = new Message();
 				msg.what = Progeress.DISMISS;
 				msg.obj = uitool.pagerAdapter.view;
@@ -271,5 +285,17 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 				uitool.mainThis.UpdateUi.sendMessage(toas);
 			}
 		}).start();
+	}
+	
+	// start函数完成任务会调用这个接口
+	public onClose close = null;
+	public ZipCompress setClose(onClose o)
+	{
+		close = o;
+		return this;
+	}
+	static public interface onClose
+	{
+		public void close();
 	}
 }
