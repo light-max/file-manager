@@ -2,6 +2,7 @@ package jysh.mf.Util;
 
 import android.content.*;
 import android.graphics.*;
+import android.net.*;
 import android.os.*;
 import java.io.*;
 import java.text.*;
@@ -311,6 +312,14 @@ public class filetool
 		if(name.matches(zip))
 		{
 			new ZipOperateSelect(context).setFp(fp).show();
+		}
+		else if(name.matches(img))
+		{
+			Intent intent = new Intent();
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			intent.setDataAndType(Uri.fromFile(fp), "image/*");
+			uitool.mainThis.startActivity(intent);
 		}
 	}
 }

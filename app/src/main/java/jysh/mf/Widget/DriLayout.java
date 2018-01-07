@@ -63,6 +63,48 @@ public class DriLayout extends RecyclerView.Adapter<DriLayout.ViewHolder>
 				uitool.mainDrawer.closeDrawers();
 			}
 		});
+		v.setOnLongClickListener(new View.OnLongClickListener(){
+			@Override
+			public boolean onLongClick(View v)
+			{
+				final OperateBook d = new OperateBook(uitool.mainThis);
+				d.bt1.setOnClickListener(new View.OnClickListener(){
+					@Override
+					public void onClick(View v)
+					{
+						final Data dat = data.get(holder.getPosition());
+						final EditBox edit = new EditBox(uitool.mainThis);
+						edit.setTitle("重命名,输入新的备注")
+							.setMessage(dat.getName())
+							.setLeft("取消")
+							.setRight("确认")
+							.setRight(new EditBox.onButton(){
+								@Override
+								public void onClick()
+								{
+									d.dismiss();
+									dbtool.updateDriName(dat,edit.getMessage());
+									dat.setName(edit.getMessage());
+									notifyItemChanged(holder.getPosition());
+								}
+							})
+							.show();
+					}
+				});
+				d.bt2.setOnClickListener(new View.OnClickListener(){
+					@Override
+					public void onClick(View v)
+					{
+						d.dismiss();
+						dbtool.deleteDri(data.get(holder.getPosition()));
+						data.remove(holder.getPosition());
+						notifyDataSetChanged();
+					}
+				});
+				d.show();
+				return true;
+			}
+		});
 		return holder;
 	}
 

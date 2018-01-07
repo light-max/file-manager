@@ -3,7 +3,8 @@ import android.content.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
-import jysh.mf.R;
+import jysh.mf.*;
+import jysh.mf.Dialog.*;
 import jysh.mf.Util.*;
 
 public class PopMenu extends LinearLayout implements View.OnClickListener
@@ -31,8 +32,45 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		if(v.getId()==id[4])
+		if(v.getId()==id[0])
+		{
+			
+		}
+		else if(v.getId()==id[1])
+		{
+			
+		}
+		else if(v.getId()==id[2])
+		{
+			final EditBox edit = new EditBox(uitool.mainThis);
+			edit.setTitle("请输入备注")
+				.setMessage("新建书签")
+				.setLeft("取消")
+				.setRight("保存")
+				.setRight(new EditBox.onButton(){
+					@Override
+					public void onClick()
+					{
+						DriLayout.Data data = new DriLayout.Data
+						(
+							System.currentTimeMillis(),
+							edit.getMessage(),
+							uitool.pagerAdapter.get(uitool.add.getPosition()).listadp.getFp().getPath()
+						);
+						uitool.drawlayout.dri.data.add(data);
+						dbtool.addDri(data);
+					}
+				})
+				.show();
+		}
+		else if(v.getId()==id[2])
+		{
+
+		}
+		else if(v.getId()==id[4])
+		{
 			uitool.mainThis.finish();
+		}
 		pop.dismiss();
 	}
 	

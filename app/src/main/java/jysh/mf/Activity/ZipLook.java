@@ -80,7 +80,7 @@ public class ZipLook extends Activity
 	private ZipEntry entry = null;
 	private ZipFile zipFile = null;
 	private List<ZipEntry> eList = new ArrayList<>();
-	private int stack = 1;
+	private int stack = 0;
 	
 	class onMenu implements View.OnClickListener
 	{
@@ -101,7 +101,7 @@ public class ZipLook extends Activity
 		}
 		for(ZipEntry e:eList)
 		{
-		//	if(getPathStack(e)==stack)
+			if(getPathStack(e)==stack)
 			{
 				list.data.add(new ZipFileList.Data(e));
 			}

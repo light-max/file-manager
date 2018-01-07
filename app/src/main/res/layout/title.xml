@@ -14,14 +14,18 @@
 		android:id="@+id/title_imagebutton_drawlayout"
 		android:padding="10dp"
 		android:background="@drawable/imagebutton"
-		android:tint="#ffffff"/>
+		android:tint="#ffffff"
+		android:layout_marginLeft="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginRight="5dp"/>
 
 	<android.support.v7.widget.RecyclerView
 		android:id="@+id/title_recyclerview_titlelist"
 		android:layout_weight="1.0"
 		android:layout_gravity="bottom"
 		android:layout_height="40dp"
-		android:layout_width="0dp"/>
+		android:layout_width="0dp"
+		android:layout_marginTop="5dp"/>
 
 	<ImageView
 		android:layout_height="40dp"
@@ -29,7 +33,10 @@
 		android:src="@drawable/ic_menu"
 		android:id="@+id/title_imagebutton_openmenu"
 		android:padding="5dp"
-		android:background="@drawable/imagebutton"/>
+		android:background="@drawable/imagebutton"
+		android:layout_marginRight="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_marginLeft="5dp"/>
 
 </LinearLayout>
 

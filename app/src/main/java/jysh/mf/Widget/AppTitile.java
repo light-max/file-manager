@@ -62,7 +62,7 @@ public class AppTitile extends LinearLayout implements View.OnClickListener
 				);
 				pop.setBackgroundDrawable(new BitmapDrawable());
 				pop.setFocusable(true);
-				pop.showAtLocation(uitool.mainDrawer,Gravity.TOP | Gravity.RIGHT,0,60);
+				pop.showAtLocation(uitool.mainDrawer,Gravity.TOP | Gravity.RIGHT,0,200);
 				menu.setPop(pop);
 				break;
 		}

@@ -75,6 +75,14 @@ public class dbtool
 		);
 	}
 	
+	public static void updateDriName(DriLayout.Data obj,String name)
+	{
+		sql.execSQL
+		(
+			"update dri set name=? where time=? and name=? and path=?",
+			new String[]{name,obj.getTime()+"",obj.getName(),obj.getPath()}
+		);
+	}
 	
 	
 	public static List<FileLayout.Data> initFile()
@@ -108,6 +116,15 @@ public class dbtool
 		(
 			"delete from file where time=? and name=? and path=?",
 			new String[]{data.getTime()+"",data.getName(),data.getPath()}
+		);
+	}
+	
+	public static void updateFileName(FileLayout.Data obj,String name)
+	{
+		sql.execSQL
+		(
+			"update file set name=? where time=? and name=? and path=?",
+			new String[]{name,obj.getTime()+"",obj.getName(),obj.getPath()}
 		);
 	}
 }

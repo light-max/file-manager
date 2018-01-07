@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="修改"
+		android:gravity="center"
+		android:textSize="17sp"
+		android:paddingBottom="7dp"
+		android:paddingTop="10dp"
+		android:textColor="#000000"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_operatebook_bt1"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="120dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="删除"
+		android:gravity="center"
+		android:textSize="17sp"
+		android:paddingBottom="10dp"
+		android:paddingTop="7dp"
+		android:textColor="#000000"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_operatebook_bt2"/>
+
+</LinearLayout>
+
