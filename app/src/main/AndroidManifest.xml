@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
 		<activity android:name="jysh.mf.Activity.ZipLook"></activity>
+		<activity android:name="jysh.mf.Activity.AppSet"></activity>
     </application>
 
 </manifest>

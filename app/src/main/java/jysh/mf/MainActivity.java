@@ -8,6 +8,7 @@ import jysh.mf.Widget.*;
 import jysh.mf.Adapter.*;
 import android.support.v4.view.*;
 import jysh.mf.Dialog.*;
+import jysh.mf.Activity.*;
 
 public class MainActivity extends Activity 
 {
@@ -15,6 +16,7 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+		AppSet.InitIni(this);
 		dbtool.InitDataBase();
         setContentView(R.layout.main);
 		uitool.mainThis = this;

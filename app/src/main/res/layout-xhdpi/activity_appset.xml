@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="#00659F">
+
+		<ImageView
+			android:background="@drawable/imagebutton"
+			android:layout_gravity="center"
+			android:src="@drawable/ic_exit"
+			android:tint="#ffffff"
+			android:padding="5dp"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginBottom="2dp"
+			android:id="@+id/activity_appset_exit"
+			android:layout_height="40dp"
+			android:layout_width="40dp"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="设置"
+			android:textColor="#FFFFFF"
+			android:textSize="28sp"
+			android:layout_marginLeft="20dp"
+			android:layout_gravity="bottom"
+			android:layout_marginBottom="2dp"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"
+		android:layout_marginTop="3dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/imagebutton"
+		android:paddingLeft="15dp"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:id="@+id/activity_appset_layout1">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:orientation="vertical"
+			android:layout_weight="1.0">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="显示缩略图"
+				android:textSize="17sp"
+				android:textColor="#000000"
+				android:layout_marginBottom="5dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:textColor="#666666"
+				android:id="@+id/activity_appset_message1"/>
+
+		</LinearLayout>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginRight="10dp"
+			android:id="@+id/activity_appset_check1"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/imagebutton"
+		android:paddingLeft="15dp"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:id="@+id/activity_appset_layout2">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:orientation="vertical"
+			android:layout_weight="1.0">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="文件夹置顶"
+				android:textSize="17sp"
+				android:textColor="#000000"
+				android:layout_marginBottom="5dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:textColor="#666666"
+				android:id="@+id/activity_appset_message2"/>
+
+		</LinearLayout>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginRight="10dp"
+			android:id="@+id/activity_appset_check2"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="@drawable/imagebutton"
+		android:paddingLeft="15dp"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:id="@+id/activity_appset_layout3">
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="0dp"
+			android:orientation="vertical"
+			android:layout_weight="1.0">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="显示隐藏目录"
+				android:textSize="17sp"
+				android:textColor="#000000"
+				android:layout_marginBottom="5dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:textColor="#666666"
+				android:id="@+id/activity_appset_message3"/>
+
+		</LinearLayout>
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginRight="10dp"
+			android:id="@+id/activity_appset_check3"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+</LinearLayout>
+

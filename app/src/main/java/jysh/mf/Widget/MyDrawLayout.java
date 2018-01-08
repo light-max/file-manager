@@ -6,6 +6,8 @@ import android.widget.*;
 import android.view.*;
 import jysh.mf.R;
 import android.support.v7.widget.*;
+import jysh.mf.Util.*;
+import jysh.mf.Activity.*;
 
 public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 {
@@ -101,11 +103,18 @@ public class MyDrawLayout extends LinearLayout implements View.OnClickListener
 					file.notifyDataSetChanged();
 				}
 				break;
+			case R.id.drawlayout_set:
+				activitytool.startActivity(uitool.mainThis,AppSet.class);
+				break;
 		}
 	}
 	
 	public void Open()
 	{
+		if(showView==R.id.drawlayout_set)
+		{
+			return;
+		}
 		showText(showView);
 	}
 }

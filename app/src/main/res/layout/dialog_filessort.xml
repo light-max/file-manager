@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="日期"
+		android:textSize="17sp"
+		android:textColor="#000000"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:paddingLeft="20dp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_filessort_date"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="300dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="名称"
+		android:textSize="17sp"
+		android:textColor="#000000"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:paddingLeft="20dp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_filessort_name"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="300dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="大小"
+		android:textSize="17sp"
+		android:textColor="#000000"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:paddingLeft="20dp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_filessort_size"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="300dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="默认"
+		android:textSize="17sp"
+		android:textColor="#000000"
+		android:paddingBottom="10dp"
+		android:paddingTop="10dp"
+		android:paddingLeft="20dp"
+		android:background="@drawable/textbutton"
+		android:id="@+id/dialog_filessort_null"/>
+
+</LinearLayout>
+

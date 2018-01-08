@@ -14,6 +14,7 @@ import android.os.*;
 import jysh.mf.Adapter.*;
 import jysh.mf.Dialog.*;
 import android.widget.CompoundButton.*;
+import jysh.mf.Activity.*;
 
 public class LayoutFileList extends LinearLayout
 {
@@ -45,15 +46,8 @@ public class LayoutFileList extends LinearLayout
 		{
 			super(context,resId,obj);
 			data = obj;
-			fp = new File("/storage/emulated/0/tencent/QQLite/head/_hd");
-			if(fp==null||!fp.exists())
-			{
-				fp = new File("/storage/emulated/0");
-			}
-			for(File f:fp.listFiles())
-			{
-				data.add(new ViewData(f));
-			}
+			fp = new File("/storage/emulated/0");
+			data.addAll(load());
 			this.list = list;
 			this.list.setAdapter(this);
 			this.list.setOnItemClickListener(this);
@@ -86,10 +80,15 @@ public class LayoutFileList extends LinearLayout
 			{
 				holder.icon.setImageResource(f.getIcon());
 			}
-			else if(f.getBmp()==null)
+			else if(AppSet.isShowImages())
 			{
 				holder.icon.setImageResource(f.getIcon());
-				// 这里有个if
+			}
+			else if(f.getBmp()==null)
+			{
+				// 设置默认图标
+				holder.icon.setImageResource(f.getIcon());
+				// 加载缩略图
 				if(position < scrollsEndItem + 12 && position > scrollsEndItem - 2)
 				new Thread(new Runnable(){
 					@Override
@@ -447,13 +446,78 @@ public class LayoutFileList extends LinearLayout
 				fp = new File("/storage/emulated/0");
 			}
 			data.clear();
-			for(File f:fp.listFiles())
-			{
-				data.add(new ViewData(f));
-			}
+			data.addAll(load());
 			path.setText(fp.getPath());
 			list.setSelection(0);
 			notifyDataSetChanged();
+		}
+		
+		private List<ViewData> load()
+		{
+			List<ViewData> data = new ArrayList<>();
+			// 文件夹置顶 & 不显示.开头的目录
+			if(AppSet.isShowDriUp() && AppSet.isShowHidden())
+			{
+				List<ViewData> dri = new ArrayList<>();
+				List<ViewData> file = new ArrayList<>();
+				for(File f:getFp().listFiles())
+				{
+					if(f.getName().charAt(0)=='.')
+					{
+						continue;
+					}
+					if(f.isDirectory())
+					{
+						dri.add(new ViewData(f));
+					}
+					else
+					{
+						file.add(new ViewData(f));
+					}
+				}
+				data.addAll(dri);
+				data.addAll(file);
+			}
+			// 文件夹置顶
+			else if(AppSet.isShowDriUp())
+			{
+				List<ViewData> dri = new ArrayList<>();
+				List<ViewData> file = new ArrayList<>();
+				for(File f:getFp().listFiles())
+				{
+					if(f.isDirectory())
+					{
+						dri.add(new ViewData(f));
+					}
+					else
+					{
+						file.add(new ViewData(f));
+					}
+				}
+				data.addAll(dri);
+				data.addAll(file);
+			}
+			// 隐藏.开头的文件
+			else if(AppSet.isShowHidden())
+			{
+				for(File f:getFp().listFiles())
+				{
+					if(f.getName().charAt(0)=='.')
+					{
+						continue;
+					}
+					data.add(new ViewData(f));
+				}
+			}
+			// 默认显示
+			else
+			{
+				for(File f:getFp().listFiles())
+				{
+					data.add(new ViewData(f));
+				}
+			}
+			return data;
 		}
 		
 		public List<ViewData> data;
@@ -504,6 +568,7 @@ public class LayoutFileList extends LinearLayout
 		private File fp;
 		private Bitmap bmp;
 		private boolean select;
+		private long size_t;
 
 		public ViewData(File fp)
 		{
@@ -517,6 +582,7 @@ public class LayoutFileList extends LinearLayout
 			{
 				icon = filetool.getFiconRes(fp.getName());
 				size = filetool.getFileSize(fp.length());
+				size_t = fp.lastModified();
 			}
 			name = fp.getName();
 			date = filetool.getFileDate(fp.lastModified());
@@ -534,6 +600,16 @@ public class LayoutFileList extends LinearLayout
 				}
 			}
 			select = false;
+		}
+
+		public void setSize_t(long size_t)
+		{
+			this.size_t = size_t;
+		}
+
+		public long getSize_t()
+		{
+			return size_t;
 		}
 
 		public void setSelect(boolean select)

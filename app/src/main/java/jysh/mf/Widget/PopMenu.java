@@ -38,7 +38,7 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 		}
 		else if(v.getId()==id[1])
 		{
-			
+			new FilesSort(getContext()).show();
 		}
 		else if(v.getId()==id[2])
 		{
@@ -63,9 +63,12 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 				})
 				.show();
 		}
-		else if(v.getId()==id[2])
+		else if(v.getId()==id[3])
 		{
-
+			for(LayoutFileList f:uitool.pagerAdapter.view)
+			{
+				f.listadp.loadList();
+			}
 		}
 		else if(v.getId()==id[4])
 		{
