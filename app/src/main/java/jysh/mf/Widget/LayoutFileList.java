@@ -498,7 +498,7 @@ public class LayoutFileList extends LinearLayout
 				data.addAll(file);
 			}
 			// 隐藏.开头的文件
-			else if(AppSet.isShowHidden())
+			else if(!AppSet.isShowHidden())
 			{
 				for(File f:getFp().listFiles())
 				{

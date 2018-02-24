@@ -14,6 +14,7 @@ public class AppSet extends Activity implements View.OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_appset);
+		findViewById(exit).setOnClickListener(this);
 		for(int i:id)
 		{
 			findViewById(i).setOnClickListener(this);
@@ -71,17 +72,21 @@ public class AppSet extends Activity implements View.OnClickListener
 	public void onClick(View v)
 	{
 		int i = v.getId();
-		if(i==id[0]||i==check[0].getId())
+		if(i==exit)
+		{
+			finish();
+		}
+		else if(i==id[0]||i==check[0].getId())
 		{
 			showImages = ! isShowImages();
 			check[0].setChecked(isShowImages());
 		}
-		if(i==id[1]||i==check[1].getId())
+		else if(i==id[1]||i==check[1].getId())
 		{
 			showDriUp = ! isShowDriUp();
 			check[1].setChecked(isShowDriUp());
 		}
-		if(i==id[2]||i==check[2].getId())
+		else if(i==id[2]||i==check[2].getId())
 		{
 			showHidden = ! isShowHidden();
 			check[2].setChecked(isShowHidden());
@@ -97,6 +102,7 @@ public class AppSet extends Activity implements View.OnClickListener
 	};
 	private CheckBox check[];
 	private TextView text[];
+	private static final int exit = R.id.activity_appset_exit;
 	
 	// 是否显示缩略图
 	public static boolean showImages;

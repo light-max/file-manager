@@ -4,6 +4,7 @@ import android.content.*;
 import android.graphics.*;
 import android.net.*;
 import android.os.*;
+import android.util.*;
 import java.io.*;
 import java.text.*;
 import java.util.*;
@@ -321,5 +322,22 @@ public class filetool
 			intent.setDataAndType(Uri.fromFile(fp), "image/*");
 			uitool.mainThis.startActivity(intent);
 		}
+		else
+		{
+			ShareFile(uitool.mainThis,fp);
+		}
 	}
+	
+	public static boolean ShareFile(Context context,File file)
+    {
+        Intent intent;
+        intent=new Intent(Intent.ACTION_SEND); 
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT,  uitool.mainThis.toString()); 
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file) ); 
+		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file) ); 
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+        context.startActivity(Intent.createChooser(intent, uitool.mainThis.toString()));
+        return true;	
+    }
 }

@@ -6,6 +6,7 @@ import jysh.mf.R;
 import android.content.*;
 import android.util.*;
 import jysh.mf.Dialog.*;
+import jysh.mf.Util.*;
 
 public class PopSelectMenu extends LinearLayout implements View.OnClickListener
 {
@@ -38,6 +39,14 @@ public class PopSelectMenu extends LinearLayout implements View.OnClickListener
 		if(v.getId()==id[0])
 		{
 			new ZipCompress(getContext()).show();
+		}
+		else if(v.getId()==id[1])
+		{
+			new FilesData(getContext()).setFiles(uitool.drawlayout.select).show();
+		}
+		else if(v.getId()==id[2])
+		{
+			
 		}
 		pop.dismiss();
 	}

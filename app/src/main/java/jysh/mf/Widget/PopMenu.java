@@ -6,6 +6,7 @@ import android.widget.*;
 import jysh.mf.*;
 import jysh.mf.Dialog.*;
 import jysh.mf.Util.*;
+import jysh.mf.Activity.*;
 
 public class PopMenu extends LinearLayout implements View.OnClickListener
 {
@@ -23,7 +24,6 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 	
 	private static final int id[] = new int[]{
 		R.id.pop_menu_search,
-		R.id.pop_menu_sort,
 		R.id.pop_menu_savedri,
 		R.id.pop_menu_re,
 		R.id.pop_menu_exit,
@@ -34,13 +34,9 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 	{
 		if(v.getId()==id[0])
 		{
-			
+			activitytool.startActivity(uitool.mainThis,Search.class);
 		}
 		else if(v.getId()==id[1])
-		{
-			new FilesSort(getContext()).show();
-		}
-		else if(v.getId()==id[2])
 		{
 			final EditBox edit = new EditBox(uitool.mainThis);
 			edit.setTitle("请输入备注")
@@ -63,14 +59,14 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 				})
 				.show();
 		}
-		else if(v.getId()==id[3])
+		else if(v.getId()==id[2])
 		{
 			for(LayoutFileList f:uitool.pagerAdapter.view)
 			{
 				f.listadp.loadList();
 			}
 		}
-		else if(v.getId()==id[4])
+		else if(v.getId()==id[3])
 		{
 			uitool.mainThis.finish();
 		}

@@ -31,23 +31,7 @@
 			android:background="?android:attr/dividerVertical"
 			android:layout_height="1dp"
 			android:layout_width="match_parent"/>
-
-		<TextView
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:text="排序"
-			android:textSize="17sp"
-			android:paddingLeft="20dp"
-			android:paddingBottom="6dp"
-			android:paddingTop="6dp"
-			android:background="@drawable/textbutton"
-			android:id="@+id/pop_menu_sort"/>
-
-		<View
-			android:background="?android:attr/dividerVertical"
-			android:layout_height="1dp"
-			android:layout_width="match_parent"/>
-
+		
 		<TextView
 			android:layout_height="wrap_content"
 			android:layout_width="match_parent"

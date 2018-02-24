@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:background="@drawable/radiusxx">
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="文件属性"
+		android:textColor="#000000"
+		android:textSize="19sp"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="15dp"
+		android:layout_marginBottom="5dp"/>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="270dp"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"
+		android:textSize="16sp"
+		android:id="@+id/dialog_filesdata_number"
+		android:textColor="#000000"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"
+		android:textSize="16sp"
+		android:id="@+id/dialog_filesdata_len"
+		android:textColor="#000000"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="wrap_content"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"
+		android:textSize="16sp"
+		android:id="@+id/dialog_filesdata_size"
+		android:textColor="#000000"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:layout_width="wrap_content"
+		android:text="我知道了"
+		android:layout_marginRight="5dp"
+		android:layout_marginTop="10dp"
+		android:textSize="17sp"
+		android:layout_marginBottom="10dp"
+		android:layout_gravity="right"
+		android:id="@+id/dialog_filesdata_exit"
+		android:textColor="#0C7404"
+		android:padding="5dp"
+		android:background="@drawable/textbutton"/>
+
+</LinearLayout>
+
