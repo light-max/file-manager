@@ -9,7 +9,7 @@ import java.util.*;
 import jysh.mf.*;
 import jysh.mf.Adapter.*;
 import jysh.mf.Dialog.*;
-import jysh.mf.ThreadTool.searchThread;
+import android.util.*;;
 
 public class Search extends Activity
 {
@@ -27,11 +27,26 @@ public class Search extends Activity
 		findViewById(R.id.activity_search_start).setOnClickListener(new setMode());
 		message = (TextView)findViewById(R.id.activity_search_message);
 		showModeDialog();
+		path = (TextView)findViewById(R.id.activity_search_path);
+		number = (TextView)findViewById(R.id.activity_search_number);
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		if(search!=null)
+		{
+			search.start_button = false;
+			search = null;
+		}
+		super.onBackPressed();
 	}
 	
 	public SearchFiles list;
 	public TextView message;
-	public List<File> fp;
+	public TextView path;
+	public TextView number;
+	public SearchThread search;
 	
 	private void showModeDialog()
 	{
@@ -51,6 +66,8 @@ public class Search extends Activity
 	}
 	
 	public static final int FILE_LIST = 0;
+	public static final int SEARCH_DATA = 1;
+	public static final int SEARCH_END = 2;
 	public Handler UpdateUi = new Handler(){
 		@Override
 		public void handleMessage(Message msg)
@@ -58,10 +75,147 @@ public class Search extends Activity
 			switch(msg.what)
 			{
 			case FILE_LIST:
-				((searchThread)msg.obj).updateUi();
+				((SearchThread)(msg.obj)).updateUi();
+				break;
+			case SEARCH_DATA:
+				path.setText((String)msg.obj);
+				number.setText("已找到"+msg.arg1+"个文件");
+				break;
+			case SEARCH_END:
+				((SearchThread)(msg.obj)).updateUi();
+				path.setText("搜索完成!");
 				break;
 			}
 		}
 	};
+	
+	public static class SearchThread extends Thread 
+	{
+		public SearchFiles view;
+		public SearchThread setAdapterView(SearchFiles view)
+		{
+			this.view = view;
+			return this;
+		}
+
+		public Search context;
+		public SearchThread setActivity(Search context)
+		{
+			this.context = context;
+			return this;
+		}
+
+		public String expression[];
+
+		@Override
+		public void run()
+		{
+			initExpression_s();
+			File fp = new File("/storage/emulated/0");
+			search(fp);
+			try
+			{
+				sleep(100);
+			}
+			catch (InterruptedException e)
+			{}
+			Message msg = new Message();
+			msg.what = Search.SEARCH_END;
+			msg.obj = this;
+			context.UpdateUi.sendMessage(msg);
+		}
+
+		private List<File> files = new ArrayList<>();
+		private long time[] = new long[]{
+			System.currentTimeMillis(),
+			System.currentTimeMillis(),
+			System.currentTimeMillis(),
+			System.currentTimeMillis(),
+		};
+		public boolean start_button = true;
+		private void search(File fp)
+		{
+			if(!start_button)
+			{
+				return;
+			}
+			for (File f:fp.listFiles())
+			{
+				if(!start_button)
+				{
+					return;
+				}
+				if (f.isDirectory())
+				{
+					search(f);
+				}
+				else if (isExpression(f))
+				{
+					files.add(f);
+				}
+			}
+			sendMessage(fp);
+			sendMessage();
+		}
+		
+		private void sendMessage()
+		{
+			if((time[1] = System.currentTimeMillis()) - time[0] < 1000)
+			{
+				return;
+			}
+			time[0] = System.currentTimeMillis();
+			
+			Message msg = new Message();
+			msg.what = Search.FILE_LIST;
+			msg.obj = this;
+			context.UpdateUi.sendMessage(msg);
+		}
+		
+		private void sendMessage(File fp)
+		{
+			if((time[3] = System.currentTimeMillis()) - time[0] < 300)
+			{
+				return;
+			}
+			time[2] = System.currentTimeMillis();
+			
+			view.addAll(files);
+			files.clear();
+			Message msg = new Message();
+			msg.what = Search.SEARCH_DATA;
+			msg.obj = fp.getPath();
+			msg.arg1 = view.data.size();
+			context.UpdateUi.sendMessage(msg);
+		}
+
+		public void updateUi()
+		{
+			view.notifyDataSetChanged();
+		}
+		
+		public void initExpression_s()
+		{
+			String strarray[] = context.expression.split("/");
+			int length = 0;
+			for(String s:strarray)
+			{
+				if(s.trim().length()!=0)
+					length++;
+			}
+			expression = new String[length];
+			int i = 0;
+			for(String s:strarray)
+			{
+				if(s.trim().length()!=0)
+					expression[i++] = s;
+			}
+		}
+
+		public boolean isExpression(File fp)
+		{
+			return true;
+		}
+	}
 }
 

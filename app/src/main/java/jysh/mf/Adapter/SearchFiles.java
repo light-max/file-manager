@@ -17,10 +17,6 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data>
 		this.view = view;
 		this.view.setAdapter(this);
 		this.data = data;
-		for(File f:new File("/storage/emulated/0/AppProjects").listFiles())
-		{
-			this.data.add(new Data(f));
-		}
 	}
 	
 	public List<Data> data;
@@ -53,6 +49,16 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data>
 		holder.size.setText(d.getSize());
 		
 		return v;
+	}
+	
+	public void addAll(List<File> fp)
+	{
+		List<Data> datas = new ArrayList<>();
+		for(File f:fp)
+		{
+			datas.add(new Data(f));
+		}
+		data.addAll(datas);
 	}
 	
 	static public class Data
