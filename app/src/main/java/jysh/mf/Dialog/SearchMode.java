@@ -122,10 +122,10 @@ public class SearchMode extends Dialog implements View.OnClickListener
 					public void initExpression_s()
 					{
 						super.initExpression_s();
-						for(String s:expression)
+						for(int i = 0;i < expression.length;i++)
 						{
-							if(s.charAt(0)!='.')
-								s = "." + s;
+							if(expression[i].charAt(0)!='.')
+								expression[i] = "." + expression[i];
 						}
 					}
 					public boolean isExpression(File fp)

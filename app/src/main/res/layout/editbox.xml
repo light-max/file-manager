@@ -27,11 +27,12 @@
 		android:minHeight="70dp"
 		android:padding="8dp"
 		android:id="@+id/messagebox_message"
-		android:gravity="top|left"
+		android:gravity="top"
 		android:background="#00000000"
 		android:hint="请输指定一个名称"
 		android:textColorHint="#C8C8C8"
-		android:inputType="textPersonName"/>
+		android:lines="5"
+		android:inputType="text"/>
 
 	<View
 		android:layout_height="0.5dp"

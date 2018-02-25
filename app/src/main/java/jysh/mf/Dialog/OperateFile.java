@@ -3,13 +3,13 @@ package jysh.mf.Dialog;
 import android.app.*;
 import android.content.*;
 import android.view.*;
-import jysh.mf.R;
-import android.widget.*;
 import java.io.*;
+import jysh.mf.*;
+import jysh.mf.Util.*;
 
 public class OperateFile extends Dialog implements View.OnClickListener
 {
-	public OperateFile(Context context,File fp)
+	public OperateFile(final Context context,final File fp)
 	{
 		super(context,R.style.Dialog);
 		View v = LayoutInflater.from(context)
@@ -23,6 +23,29 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		{
 			findViewById(id[1]).setVisibility(View.GONE);
 		}
+		attribute = new OnClick(){
+			@Override
+			public void onClick()
+			{
+				dismiss();
+				new FileAttribute(context,fp).show();
+			}
+		};
+		open = new OperateFile.OnClick(){
+			@Override
+			public void onClick()
+			{
+				// 我觉得把文件对象传递过去,打开操作用这个对象来确定好一点
+				new OpenFileStyle(context,fp).show();
+			}
+		};
+		send = new OperateFile.OnClick(){
+			@Override
+			public void onClick()
+			{
+				
+			}
+		};
 	}
 	
 	@Override
@@ -47,6 +70,8 @@ public class OperateFile extends Dialog implements View.OnClickListener
 			zip.onClick();
 		else if(id==this.id[8]&&send!=null)
 			send.onClick();
+		else if(id==this.id[9]&&attribute!=null)
+			attribute.onClick();
 		dismiss();
 	}
 	
@@ -60,6 +85,7 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		R.id.dialogopenfiledri_addbook,
 		R.id.dialogopenfiledri_zip,
 		R.id.dialogopenfiledri_send,
+		R.id.dialogopenfiledri_attribute,
 	};
 	
 	static public interface OnClick
@@ -67,7 +93,7 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		public void onClick();
 	}
 	
-	private OnClick select,open,rename,delete,move,copy,addbook,zip,send;
+	private OnClick select,open,rename,delete,move,copy,addbook,zip,send,attribute;
 	
 	public OperateFile setSelect(OnClick select)
 	{
@@ -120,6 +146,12 @@ public class OperateFile extends Dialog implements View.OnClickListener
 	public OperateFile setSend(OnClick send)
 	{
 		this.send = send;
+		return this;
+	}
+	
+	public OperateFile setAttribute(OnClick attribute)
+	{
+		this.attribute = attribute;
 		return this;
 	}
 }

@@ -21,7 +21,7 @@ public class filetool
 	public static final String mp4 = "(.*)\\.(?:mp4|mkv)$";
 	public static final String sys = "(.*)\\.(?:ini)$";
 	public static final String zip = "(.*)\\.(?:zip|rar)$";
-	public static final String database = "(.*)\\.(?:log|sql)$";
+	public static final String database = "(.*)\\.(?:log|sql|db)$";
 	public static final String apk = "(.*)\\.apk$";
 	public static final String ppt = "(.*)\\.(?:ppt|pdf)$";
 	public static final String doc = "(.*)\\.(?:doc|dox|docx)$";

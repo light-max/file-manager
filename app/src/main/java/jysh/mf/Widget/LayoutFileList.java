@@ -180,14 +180,6 @@ public class LayoutFileList extends LinearLayout
 					}
 				})
 				// 打开方式
-				.setOpen(new OperateFile.OnClick(){
-					@Override
-					public void onClick()
-					{
-						// 我觉得把文件对象传递过去,打开操作用这个对象来确定好一点
-						new OpenFileStyle(uitool.mainThis,d.getFp()).show();
-					}
-				})
 				// 重命名
 				.setReanme(new OperateFile.OnClick(){
 					@Override
@@ -386,13 +378,7 @@ public class LayoutFileList extends LinearLayout
 					}
 				})
 				// 发送
-				.setSend(new OperateFile.OnClick(){
-					@Override
-					public void onClick()
-					{
-						
-					}
-				})
+				// 属性
 				.show();
 			return true;
 		}

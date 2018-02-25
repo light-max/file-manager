@@ -80,7 +80,8 @@
 		android:layout_marginRight="10dp"
 		android:layout_marginLeft="5dp"
 		android:visibility="gone"
-		android:id="@+id/itemfiledataview_checkbox"/>
+		android:id="@+id/itemfiledataview_checkbox"
+		android:buttonTint="#00659f"/>
 
 </LinearLayout>
 

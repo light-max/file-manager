@@ -68,6 +68,7 @@ public class Search extends Activity
 	public static final int FILE_LIST = 0;
 	public static final int SEARCH_DATA = 1;
 	public static final int SEARCH_END = 2;
+	public static final int FILES_BMP = 3;
 	public Handler UpdateUi = new Handler(){
 		@Override
 		public void handleMessage(Message msg)
@@ -84,6 +85,9 @@ public class Search extends Activity
 			case SEARCH_END:
 				((SearchThread)(msg.obj)).updateUi();
 				path.setText("搜索完成!");
+				break;
+			case FILES_BMP:
+				list.notifyDataSetChanged();
 				break;
 			}
 		}
@@ -115,10 +119,14 @@ public class Search extends Activity
 			search(fp);
 			try
 			{
-				sleep(100);
+				sleep(50);
 			}
 			catch (InterruptedException e)
-			{}
+			{
+				e.printStackTrace();
+			}
+			view.addAll(files);
+			files.clear();
 			Message msg = new Message();
 			msg.what = Search.SEARCH_END;
 			msg.obj = this;
@@ -166,6 +174,8 @@ public class Search extends Activity
 			}
 			time[0] = System.currentTimeMillis();
 			
+			view.addAll(files);
+			files.clear();
 			Message msg = new Message();
 			msg.what = Search.FILE_LIST;
 			msg.obj = this;
@@ -174,14 +184,12 @@ public class Search extends Activity
 		
 		private void sendMessage(File fp)
 		{
-			if((time[3] = System.currentTimeMillis()) - time[0] < 300)
+			if((time[3] = System.currentTimeMillis()) - time[2] < 150)
 			{
 				return;
 			}
 			time[2] = System.currentTimeMillis();
 			
-			view.addAll(files);
-			files.clear();
 			Message msg = new Message();
 			msg.what = Search.SEARCH_DATA;
 			msg.obj = fp.getPath();
