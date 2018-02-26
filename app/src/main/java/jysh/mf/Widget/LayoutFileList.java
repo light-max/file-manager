@@ -328,47 +328,6 @@ public class LayoutFileList extends LinearLayout
 					}
 				})
 				// 添加到书签
-				.setAddbook(new OperateFile.OnClick(){
-					@Override
-					public void onClick()
-					{
-						final EditBox edit = new EditBox(uitool.mainThis);
-						edit.setTitle("请输入备注")
-							.setMessage("新建书签")
-							.setLeft("取消")
-							.setRight("保存")
-							.setRight(new EditBox.onButton(){
-								@Override
-								public void onClick()
-								{
-									if(d.getFp().isDirectory())
-									{
-										DriLayout.Data data = new DriLayout.Data
-										(
-											System.currentTimeMillis(),
-											edit.getMessage(),
-											d.getFp().getPath()
-										);
-										uitool.drawlayout.dri.data.add(data);
-										dbtool.addDri(data);
-									}
-									else
-									{
-										FileLayout.Data data = new FileLayout.Data
-										(
-											System.currentTimeMillis(),
-											edit.getMessage(),
-											d.getFp().getPath()
-										);
-										uitool.drawlayout.file.data.add(data);
-										dbtool.addFile(data);
-									}
-									//
-								}
-							})
-							.show();
-					}
-				})
 				// 压缩
 				.setZip(new OperateFile.OnClick(){
 					@Override

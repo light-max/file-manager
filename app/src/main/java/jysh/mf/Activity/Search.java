@@ -9,7 +9,8 @@ import java.util.*;
 import jysh.mf.*;
 import jysh.mf.Adapter.*;
 import jysh.mf.Dialog.*;
-import android.util.*;;
+import android.util.*;
+import jysh.mf.Util.*;;
 
 public class Search extends Activity
 {
@@ -47,6 +48,7 @@ public class Search extends Activity
 	public TextView path;
 	public TextView number;
 	public SearchThread search;
+	public Progeress dialog;
 	
 	private void showModeDialog()
 	{
@@ -69,6 +71,10 @@ public class Search extends Activity
 	public static final int SEARCH_DATA = 1;
 	public static final int SEARCH_END = 2;
 	public static final int FILES_BMP = 3;
+	public static final int CLOSE_DIALOG = 4;
+	public static final int TOAS = 5;
+	public static final int OPEN_DIALOG = 6;
+	public static final int THREAD_UI = 7;
 	public Handler UpdateUi = new Handler(){
 		@Override
 		public void handleMessage(Message msg)
@@ -89,9 +95,30 @@ public class Search extends Activity
 			case FILES_BMP:
 				list.notifyDataSetChanged();
 				break;
+			case CLOSE_DIALOG:
+				if(dialog!=null)
+				{
+					dialog.dismiss();
+					dialog = null;
+				}
+				break;
+			case TOAS:
+				uitool.toos(Search.this,(String)(msg.obj));
+				break;
+			case OPEN_DIALOG:
+				dialog = new Progeress(Search.this);
+				dialog.show();
+				break;
+			case THREAD_UI:
+				((Thread_Ui)(msg.obj)).onRun();
+				break;
 			}
 		}
 	};
+	static public interface Thread_Ui
+	{
+		public void onRun()
+	}
 	
 	public static class SearchThread extends Thread 
 	{

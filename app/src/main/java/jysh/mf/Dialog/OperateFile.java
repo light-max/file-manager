@@ -6,6 +6,7 @@ import android.view.*;
 import java.io.*;
 import jysh.mf.*;
 import jysh.mf.Util.*;
+import jysh.mf.Widget.*;
 
 public class OperateFile extends Dialog implements View.OnClickListener
 {
@@ -44,6 +45,46 @@ public class OperateFile extends Dialog implements View.OnClickListener
 			public void onClick()
 			{
 				
+			}
+		};
+		addbook = new OperateFile.OnClick(){
+			@Override
+			public void onClick()
+			{
+				final EditBox edit = new EditBox(context);
+				edit.setTitle("请输入备注")
+					.setMessage("新建书签")
+					.setLeft("取消")
+					.setRight("保存")
+					.setRight(new EditBox.onButton(){
+						@Override
+						public void onClick()
+						{
+							if(fp.isDirectory())
+							{
+								DriLayout.Data data = new DriLayout.Data
+								(
+									System.currentTimeMillis(),
+									edit.getMessage(),
+									fp.getPath()
+								);
+								uitool.drawlayout.dri.data.add(data);
+								dbtool.addDri(data);
+							}
+							else
+							{
+								FileLayout.Data data = new FileLayout.Data
+								(
+									System.currentTimeMillis(),
+									edit.getMessage(),
+									fp.getPath()
+								);
+								uitool.drawlayout.file.data.add(data);
+								dbtool.addFile(data);
+							}
+						}
+					})
+					.show();
 			}
 		};
 	}

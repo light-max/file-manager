@@ -44,7 +44,7 @@ public class ZipCompress extends Dialog implements View.OnClickListener
 		return this;
 	}
 	
-	private static final int[] id = new int[]{
+	public static final int[] id = new int[]{
 		R.id.dialog_zipcompress_radio1,
 		R.id.dialog_zipcompress_radio2,
 		R.id.dialog_zipcompress_radio3,

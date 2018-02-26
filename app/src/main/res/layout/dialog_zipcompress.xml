@@ -71,11 +71,6 @@
 
 	</LinearLayout>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
@@ -106,60 +101,36 @@
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
 
-	<LinearLayout
-		android:layout_height="50dp"
+	<RadioButton
+		android:layout_height="45dp"
 		android:layout_width="match_parent"
-		android:orientation="horizontal"
-		android:gravity="center_vertical">
-
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:layout_marginLeft="10dp"
-			android:id="@+id/dialog_zipcompress_radio1"
-			android:text="保存到当前目录"/>
-
-	</LinearLayout>
+		android:layout_marginLeft="10dp"
+		android:id="@+id/dialog_zipcompress_radio1"
+		android:text="  保存到当前目录"/>
 
 	<View
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
 
-	<LinearLayout
-		android:layout_height="50dp"
+	<RadioButton
+		android:layout_height="45dp"
 		android:layout_width="match_parent"
-		android:orientation="horizontal"
-		android:gravity="center_vertical">
-
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:layout_marginLeft="10dp"
-			android:id="@+id/dialog_zipcompress_radio2"
-			android:text="另外打开一个"/>
-
-	</LinearLayout>
+		android:layout_marginLeft="10dp"
+		android:id="@+id/dialog_zipcompress_radio2"
+		android:text="  另外打开一个"/>
 
 	<View
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="1dp"
 		android:layout_width="match_parent"/>
 
-	<LinearLayout
-		android:layout_height="50dp"
+	<RadioButton
+		android:layout_height="45dp"
 		android:layout_width="match_parent"
-		android:orientation="horizontal"
-		android:gravity="center_vertical">
-
-		<RadioButton
-			android:layout_height="wrap_content"
-			android:layout_width="match_parent"
-			android:layout_marginLeft="10dp"
-			android:id="@+id/dialog_zipcompress_radio3"
-			android:text="从目录书签选择"/>
-
-	</LinearLayout>
+		android:layout_marginLeft="10dp"
+		android:id="@+id/dialog_zipcompress_radio3"
+		android:text="  从目录书签选择"/>
 
 	<View
 		android:background="?android:attr/dividerVertical"

@@ -13,6 +13,8 @@ import jysh.mf.*;
 import jysh.mf.Activity.*;
 import jysh.mf.Dialog.*;
 import jysh.mf.Util.*;
+import jysh.mf.Widget.*;
+import android.util.*;
 
 public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScrollListener
 {
@@ -25,6 +27,7 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 		this.setSelect(false);
 		this.setScroll(0);
 		this.view.setOnScrollListener(this);
+		activity = (Search)context;
 	}
 	
 	public List<Data> data;
@@ -50,6 +53,12 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 	public boolean isSelect()
 	{
 		return select;
+	}
+	
+	private Search activity;
+	public Search getActivity()
+	{
+		return activity;
 	}
 	
 	@Override
@@ -112,7 +121,7 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 			@Override
 			public void onClick(View v)
 			{
-				filetool.fileOpens(getContext(),d.getFp());
+				filetool.fileOpens(parent.getContext(),d.getFp());
 			}
 		});
 		
@@ -250,11 +259,18 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 						public void onClick(View v)
 						{
 							select.dismiss();
-							new pathList(getContext()){
+							new RootBook(getContext()){
 								@Override
-								public void select()
+								public void select(String path)
 								{
-									
+									File newFile = new File(path,d.getFp().getName());
+									if(d.getFp().renameTo(newFile))
+									{
+										uitool.toos(getContext(),"移动成功");
+										d.setFp(newFile);
+										return;
+									}
+									uitool.toos(getContext(),"移动失败");
 								}
 							}.show();
 						}
@@ -262,7 +278,23 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 					select.bt2.setOnClickListener(new View.OnClickListener(){
 						@Override
 						public void onClick(View v)
-						{}
+						{
+							select.dismiss();
+							new pathList(getContext()){
+								@Override
+								public void select()
+								{
+									File newFile = new File(this.root.getFp(),d.getFp().getName());
+									if(d.getFp().renameTo(newFile))
+									{
+										uitool.toos(getContext(),"移动成功");
+										d.setFp(newFile);
+										return;
+									}
+									uitool.toos(getContext(),"移动失败");
+								}
+							}.show();
+						}
 					});
 					select.show();
 				}
@@ -275,14 +307,41 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 					select.bt1.setOnClickListener(new View.OnClickListener(){
 						@Override
 						public void onClick(View v)
-						{}
+						{
+							select.dismiss();
+							new RootBook(getContext()){
+								@Override
+								public void select(String path)
+								{
+									File newFile = new File(path,d.getFp().getName());
+									new copyThread().set(SearchFiles.this.getActivity(),d.getFp(),newFile).start();
+								}
+							}.show();
+						}
 					});
 					select.bt2.setOnClickListener(new View.OnClickListener(){
 						@Override
 						public void onClick(View v)
-						{}
+						{
+							select.dismiss();
+							new pathList(getContext()){
+								@Override
+								public void select()
+								{
+									File newFile = new File(this.root.getFp(),d.getFp().getName());
+									new copyThread().set(getActivity(),d.getFp(),newFile).start();
+								}
+							}.show();
+						}
 					});
 					select.show();
+				}
+			})
+			.setZip(new OperateFile.OnClick(){
+				@Override
+				public void onClick()
+				{
+					new ZipDialog(getActivity()).setFp(d.getFp()).show();
 				}
 			})
 			.show();
@@ -338,7 +397,6 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 		{
 			return check;
 		}
-
 
 		public void setFp(File fp)
 		{
@@ -445,7 +503,7 @@ class pathList extends Dialog
 		(
 			context,
 			(ListView)findViewById(R.id.dialog_rootselect_list),
-			new ArrayList<String>()
+			new ArrayList<File>()
 		);
 		button[0].setOnClickListener(new View.OnClickListener(){
 			@Override
@@ -476,33 +534,357 @@ class pathList extends Dialog
 	{
 	}
 	
-	class rootList extends ArrayAdapter<String>
+	class rootList extends ArrayAdapter<File>
 	{
-		public rootList(Context context,ListView view,List<String> data)
+		public rootList(Context context,ListView view,List<File> data)
 		{
 			super(context,0,data);
 			this.view = view;
 			this.data = data;
+			this.view.setAdapter(this);
 			fp = new File("/storage/emulated/0");
 			setPath(fp);
+			loadRoot();
+			notifyDataSetChanged();
 		}
 		
 		public ListView view;
-		public List<String> data;
+		public List<File> data;
 		public File fp;
+
+		public void setFp(File fp)
+		{
+			this.fp = fp;
+		}
+
+		public File getFp()
+		{
+			return fp;
+		}
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
-			// TODO: Implement this method
-			return super.getView(position, convertView, parent);
+			TextView v;
+			if(convertView==null)
+			{
+				v = (TextView)LayoutInflater.from(parent.getContext())
+					.inflate(R.layout.textview_dri,null,false);
+			}
+			else
+			{
+				v = (TextView)convertView;
+			}
+			
+			final File fp = getItem(position);
+			v.setText(fp.getName());
+			
+			v.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View v)
+				{
+					setFp(fp);
+					setPath(fp);
+					loadRoot();
+					notifyDataSetChanged();
+				}
+			});
+			
+			return v;
 		}
 		
 		private void returnUpRoot()
 		{
-			
+			if(fp.getPath().equals("/"))
+			{
+				uitool.toos(getContext(),"没有上一级了");
+				return;
+			}
+			setFp(fp.getParentFile());
+			setPath(fp);
+			loadRoot();
+			notifyDataSetChanged();
 		}
-
+		
+		private void loadRoot()
+		{
+			data.clear();
+			for(File f:fp.listFiles())
+			{
+				if(f.isDirectory()&&f.canRead()&&f.canWrite())
+					data.add(f);
+			}
+		}
 	}
 	
+}
+
+class RootBook extends Dialog
+{
+	public RootBook(Context context)
+	{
+		super(context,R.style.Dialog);
+		View v = LayoutInflater.from(context)
+			.inflate(R.layout.listview_popbook,null);
+		super.setContentView(v);
+		rootlist = new RootList(context,(ListView)v,dbtool.initDri());
+	}
+	
+	public void select(String path)
+	{
+	}
+	
+	public RootList rootlist;
+	
+	class RootList extends ArrayAdapter<DriLayout.Data>
+	{
+		public RootList(Context context,ListView view,List<DriLayout.Data> data)
+		{
+			super(context,0,data);
+			this.view = view;
+			this.data = data;
+			this.view.setAdapter(this);
+		}
+		
+		public ListView view;
+		public List<DriLayout.Data> data;
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			View v;
+			if(convertView==null)
+			{
+				v = LayoutInflater.from(getContext())
+					.inflate(R.layout.item_dribook,null,false);
+			}
+			else
+			{
+				v = convertView;
+			}
+			
+			final DriLayout.Data d = getItem(position);
+			
+			v.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View v)
+				{
+					dismiss();
+					select(d.getPath());
+				}
+			});
+			((TextView)v.findViewById(R.id.item_dribook_name)).setText(d.getName());
+			((TextView)v.findViewById(R.id.item_dribook_path)).setText(d.getPath());
+			
+			return v;
+		}
+	}
+}
+
+class copyThread extends Thread
+{
+	private Search context;
+	private File fp,to;
+
+	public copyThread set(Search context, File fp, File to)
+	{
+		this.context = context;
+		this.fp = fp;
+		this.to = to;
+		return this;
+	}
+	
+	@Override
+	public void run()
+	{
+		if(to.exists())
+		{
+			Message msg = new Message();
+			msg.what = Search.TOAS;
+			msg.obj = "已有同名文件";
+			context.UpdateUi.sendMessage(msg);
+			return;
+		}
+		if(!fp.canRead())
+		{
+			Message msg = new Message();
+			msg.what = Search.TOAS;
+			msg.obj = "文件不可读";
+			context.UpdateUi.sendMessage(msg);
+			return;
+		}
+		Message msg = new Message();
+		msg.what = Search.OPEN_DIALOG;
+		context.UpdateUi.sendMessage(msg);
+		
+		filetool.copyFile(to.getParentFile(),fp);
+	
+		msg = new Message();
+		msg.what = Search.TOAS;
+		msg.obj = "复制完成";
+		context.UpdateUi.sendMessage(msg);
+		
+		msg = new Message();
+		msg.what = Search.CLOSE_DIALOG;
+		context.UpdateUi.sendMessage(msg);
+	}
+}
+
+class ZipDialog extends Dialog
+{
+	public ZipDialog(final Context context)
+	{
+		super(context,R.style.Dialog);
+		View v = LayoutInflater.from(context)
+			.inflate(R.layout.dialog_zipcompress,null);
+		super.setContentView(v);
+		findViewById(R.id.dialog_zipcompress_radio1).setVisibility(View.GONE);
+		radio = new RadioButton[]{
+			(RadioButton)findViewById(R.id.dialog_zipcompress_radio2),
+			(RadioButton)findViewById(R.id.dialog_zipcompress_radio3),
+		};
+		radio[0].setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				new pathList(context){
+					@Override
+					public void select()
+					{
+						ZipDialog.this.setPath(root.getFp().getPath());
+					}
+				}.show();
+				radio[0].setChecked(true);
+				radio[1].setChecked(false);
+			}
+		});
+		radio[1].setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				new RootBook(context){
+					@Override
+					public void select(String path)
+					{
+						setPath(path);
+					}
+				}.show();
+				radio[1].setChecked(true);
+				radio[0].setChecked(false);
+			}
+		});
+		findViewById(R.id.dialog_zipcompress_exit)
+		.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				dismiss();
+			}
+		});
+		findViewById(R.id.dialog_zipcompress_start)
+		.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				dismiss();
+				start();
+			}
+		});
+		path = (EditText)findViewById(R.id.dialog_zipcompress_path);
+		name = (EditText)findViewById(R.id.dialog_zipcompress_name);
+		setPath("/storage/emulated/0");
+		setName("新建压缩包.zip");
+		activity = (Search)context;
+	}
+	
+	private List<File> fp = null;
+	private EditText path,name;
+	private RadioButton radio[];
+	private Search activity;
+
+	private void setPath(String path)
+	{
+		this.path.setText(path);
+	}
+	
+	private void setName(String name)
+	{
+		this.name.setText(name);
+	}
+	
+	public ZipDialog setFp(File fp)
+	{
+		this.fp = new ArrayList<>();
+		this.fp.add(fp);
+		setName(fp.getName()+".zip");
+		return this;
+	}
+	
+	public ZipDialog setFp(List<File> fp)
+	{
+		this.fp = fp;
+		setName("新建压缩包.zip");
+		return this;
+	}
+	
+	private File to;
+	public void start()
+	{
+		to = new File(path.getText().toString(),name.getText().toString());
+		if(to.exists())
+		{
+			uitool.toos(getContext(),"已有同名文件");
+			return;
+		}
+		String error = "";
+		for(File f:fp)
+		{
+			if(f.canRead())
+			{
+				error = error + f.getName() + "不可读取\n";
+			}
+		}
+		if(error.length()==0)
+		{
+			uitool.toos(getContext(),error);
+		}
+		activity.dialog = new Progeress(activity);
+		activity.dialog.show();
+		new Thread(new Runnable(){
+			@Override
+			public void run()
+			{
+				if(fp.size()==1)
+				{
+					try
+					{
+						ziptool.zipCompress(to, fp.get(0));
+					}
+					catch (Exception e)
+					{}
+				}
+				else
+				{
+					try
+					{
+						ziptool.zipCompress(to, fp);
+					}
+					catch (Exception e)
+					{}
+				}
+				Message msg = new Message();
+				msg.what = Search.THREAD_UI;
+				msg.obj = new Search.Thread_Ui(){
+					@Override
+					public void onRun()
+					{
+						activity.dialog.dismiss();
+						activity.dialog = null;
+						uitool.toos(activity,"压缩完成");
+					}
+				};
+				activity.UpdateUi.sendMessage(msg);
+			}
+		}).start();
+	}
 }

@@ -312,7 +312,7 @@ public class filetool
 		String name = fp.getName();
 		if(name.matches(zip))
 		{
-			new ZipOperateSelect(context).setFp(fp).show();
+			new ZipDecompression(context).setFp(fp).show();
 		}
 		else if(name.matches(img))
 		{

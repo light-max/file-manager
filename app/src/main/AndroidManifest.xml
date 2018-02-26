@@ -21,11 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name="jysh.mf.Activity.ZipLook"></activity>
 		<activity android:name="jysh.mf.Activity.AppSet"></activity>
-		<activity android:name="jysh.mf.Activity.Search"
-			>
-		</activity>
+		<activity android:name="jysh.mf.Activity.Search"></activity>
     </application>
 
 </manifest>

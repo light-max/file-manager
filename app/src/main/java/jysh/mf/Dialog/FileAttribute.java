@@ -11,7 +11,7 @@ import jysh.mf.Util.*;
 
 public class FileAttribute extends Dialog
 {
-	public FileAttribute(final Context context,File fp)
+	public FileAttribute(final Context context,final File fp)
 	{
 		super(context,R.style.Dialog);
 		this.fp = fp;
@@ -42,6 +42,9 @@ public class FileAttribute extends Dialog
 			@Override
 			public void onClick(View v)
 			{
+				ClipboardManager cmb = (ClipboardManager)getContext()
+					.getSystemService(Context.CLIPBOARD_SERVICE);
+				cmb.setPrimaryClip(ClipData.newPlainText(null,fp.getName()));
 				uitool.toos(context,"文件名已复制到剪切板");
 			}
 		});
@@ -49,6 +52,9 @@ public class FileAttribute extends Dialog
 			@Override
 			public void onClick(View v)
 			{
+				ClipboardManager cmb = (ClipboardManager)getContext()
+					.getSystemService(Context.CLIPBOARD_SERVICE);
+				cmb.setPrimaryClip(ClipData.newPlainText(null,fp.getPath()));
 				uitool.toos(context,"文件路径已复制到剪切板");
 			}
 		});

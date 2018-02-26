@@ -1,5 +1,6 @@
 package jysh.mf.Dialog;
 
+import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.widget.*;
@@ -7,6 +8,8 @@ import java.io.*;
 import jysh.mf.*;
 import jysh.mf.Util.*;
 import jysh.mf.Widget.*;
+import jysh.mf.Activity.*;
+import android.view.*;
 
 // 继承保存压缩文件的类
 public class ZipDecompression extends ZipCompress
@@ -16,7 +19,14 @@ public class ZipDecompression extends ZipCompress
 		super(context);
 		TextView title = (TextView)findViewById(R.id.dialog_zipcompress_title);
 		title.setText("zip文件解压...");
+		activity = context;
+		if(activity instanceof Search)
+		{
+			findViewById(id[0]).setVisibility(View.GONE);
+		}
 	}
+	
+	private Context activity;
 
 	@Override
 	public void setDri()
@@ -70,10 +80,20 @@ public class ZipDecompression extends ZipCompress
 		to = new File(path.getText().toString(),name.getText().toString());
 		if(to.exists())
 		{
-			uitool.toos(uitool.mainThis,"已有同名文件");
+			uitool.toos(getContext(),"已有同名文件");
 			return;
 		}
-		uitool.progerss.show();
+		
+		if(activity instanceof Search)
+		{
+			((Search)activity).dialog = new Progeress(activity);
+			((Search)activity).dialog.show();
+		}
+		else if(activity instanceof MainActivity)
+		{
+			uitool.progerss.show();
+		}
+		
 		new Thread(new Runnable(){
 			@Override
 			public void run()
@@ -92,20 +112,38 @@ public class ZipDecompression extends ZipCompress
 					close.close();
 				}
 				
-				Message msg = new Message();
-				msg.what = Progeress.DISMISS;
-				msg.obj = uitool.pagerAdapter.view;
-				uitool.mainThis.UpdateUi.sendMessage(msg);
+				if(activity instanceof Search)
+				{
+					Message msg = new Message();
+					msg.what = Search.THREAD_UI;
+					msg.obj = new Search.Thread_Ui(){
+						@Override
+						public void onRun()
+						{
+							((Search)activity).dialog.dismiss();
+							((Search)activity).dialog = null;
+							ZipDecompression.this.dismiss();
+						}
+					};
+					((Search)activity).UpdateUi.sendMessage(msg);
+				}
+				else if(activity instanceof MainActivity)
+				{
+					Message msg = new Message();
+					msg.what = Progeress.DISMISS;
+					msg.obj = uitool.pagerAdapter.view;
+					uitool.mainThis.UpdateUi.sendMessage(msg);
 
-				Message clos = new Message();
-				clos.what = uitool.CLOSE_DIALOG;
-				clos.obj = ZipDecompression.this;
-				uitool.mainThis.UpdateUi.sendMessage(clos);
+					Message clos = new Message();
+					clos.what = uitool.CLOSE_DIALOG;
+					clos.obj = ZipDecompression.this;
+					uitool.mainThis.UpdateUi.sendMessage(clos);
 
-				Message toas = new Message();
-				toas.what = uitool.TOAS;
-				toas.obj = "已完成";
-				uitool.mainThis.UpdateUi.sendMessage(toas);
+					Message toas = new Message();
+					toas.what = uitool.TOAS;
+					toas.obj = "已完成";
+					uitool.mainThis.UpdateUi.sendMessage(toas);
+				}
 			}
 		}).start();
 	}
