@@ -10,7 +10,8 @@ import jysh.mf.*;
 import jysh.mf.Adapter.*;
 import jysh.mf.Dialog.*;
 import android.util.*;
-import jysh.mf.Util.*;;
+import jysh.mf.Util.*;
+import jysh.mf.Widget.*;;
 
 public class Search extends Activity
 {
@@ -30,6 +31,7 @@ public class Search extends Activity
 		showModeDialog();
 		path = (TextView)findViewById(R.id.activity_search_path);
 		number = (TextView)findViewById(R.id.activity_search_number);
+		select = (searchPopSelect)findViewById(R.id.activity_search_select);
 	}
 
 	@Override
@@ -49,6 +51,7 @@ public class Search extends Activity
 	public TextView number;
 	public SearchThread search;
 	public Progeress dialog;
+	public searchPopSelect select;
 	
 	private void showModeDialog()
 	{

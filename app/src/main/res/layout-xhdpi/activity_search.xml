@@ -55,6 +55,12 @@
 
 	</FrameLayout>
 
+	<jysh.mf.Widget.searchPopSelect
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/activity_search_select"
+		android:visibility="gone"/>
+
 	<View
 		android:background="?android:attr/dividerVertical"
 		android:layout_height="1dp"

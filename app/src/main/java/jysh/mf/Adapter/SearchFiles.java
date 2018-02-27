@@ -34,6 +34,7 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 	public ListView view;
 	private boolean select;
 	private int scroll;
+	
 
 	public void setScroll(int scroll)
 	{
@@ -47,6 +48,10 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 
 	public void setSelect(boolean select)
 	{
+		for(Data d:data)
+		{
+			d.setCheck(false);
+		}
 		this.select = select;
 	}
 
@@ -144,6 +149,12 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 				{
 					d.setCheck(!d.isCheck());
 					((CheckBox)v).setChecked(d.isCheck());
+					if(d.isCheck())
+					{
+						activity.select.addFp(d.getFp());
+					}
+					else
+						activity.select.removeFp(d.getFp());
 				}
 			});
 		}
@@ -190,6 +201,7 @@ public class SearchFiles extends ArrayAdapter<SearchFiles.Data> implements OnScr
 				@Override
 				public void onClick()
 				{
+					activity.select.setVisibility(View.VISIBLE);
 					setSelect(true);
 					notifyDataSetChanged();
 				}
