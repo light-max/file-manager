@@ -26,6 +26,7 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 		R.id.pop_menu_search,
 		R.id.pop_menu_savedri,
 		R.id.pop_menu_re,
+		R.id.pop_menu_about,
 		R.id.pop_menu_exit,
 	};
 
@@ -67,6 +68,10 @@ public class PopMenu extends LinearLayout implements View.OnClickListener
 			}
 		}
 		else if(v.getId()==id[3])
+		{
+			new DialogAbout(uitool.mainThis).show();
+		}
+		else if(v.getId()==id[4])
 		{
 			uitool.mainThis.finish();
 		}

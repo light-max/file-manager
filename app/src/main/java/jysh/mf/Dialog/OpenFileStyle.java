@@ -29,9 +29,6 @@ public class OpenFileStyle extends Dialog implements View.OnClickListener
 		R.id.dialog_openfile_image,
 		R.id.dialog_openfile_web,
 		R.id.dialog_openfile_textedit,
-		R.id.dialog_openfile_ys,
-		R.id.dialog_openfile_jy,
-		R.id.dialog_openfile_ziplook,
 		R.id.dialog_openfile_apk,
 		R.id.dialog_openfile_null,
 	};

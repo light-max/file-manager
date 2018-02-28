@@ -54,9 +54,6 @@ public class AddFileViewButton implements View.OnClickListener
 				case R.id.dialognew_drititle:
 					opentitle();
 					break;
-				case R.id.dialognew_classview:
-					classview();
-					break;
 				case R.id.dialognew_savetitle:
 					savetitle();
 					break;
@@ -162,11 +159,6 @@ public class AddFileViewButton implements View.OnClickListener
 		uitool.pagerAdapter.notifyDataSetChanged();
 		uitool.apptitle.setPosition(getPosition());
 		uitool.pagerAdapter.setPosition(getPosition());
-	}
-	
-	private void classview()
-	{
-		
 	}
 	
 	private void savetitle()

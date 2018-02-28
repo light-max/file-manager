@@ -20,9 +20,9 @@ public class PopSelectMenu extends LinearLayout implements View.OnClickListener
 		}
 	}
 	
-	private PopupWindow pop;
+	public PopupWindow pop;
 	
-	private static final int id[] = new int[]{
+	public static final int id[] = new int[]{
 		R.id.pop_selectmenu_zip,
 		R.id.pop_selectmenu_data,
 		R.id.pop_selectmenu_send,

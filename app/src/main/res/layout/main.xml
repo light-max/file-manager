@@ -69,7 +69,6 @@
 	</LinearLayout>
 
 	<LinearLayout
-		android:background="#8F8C8B"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"
 		android:layout_gravity="start">

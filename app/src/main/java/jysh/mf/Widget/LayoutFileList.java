@@ -18,7 +18,7 @@ import jysh.mf.Activity.*;
 
 public class LayoutFileList extends LinearLayout
 {
-	public LayoutFileList(Context context,AttributeSet attr)
+	public LayoutFileList(final Context context,AttributeSet attr)
 	{
 		super(context,attr);
 		LayoutInflater.from(context).inflate(R.layout.widget_flist,this);
@@ -29,6 +29,16 @@ public class LayoutFileList extends LinearLayout
 			new ArrayList<ViewData>()
 		);
 		listadp.setPath((TextView)findViewById(R.id.widget_flist_path));
+		listadp.path.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v)
+			{
+				ClipboardManager cmb = (ClipboardManager)getContext()
+					.getSystemService(Context.CLIPBOARD_SERVICE);
+				cmb.setPrimaryClip(ClipData.newPlainText(null,listadp.path.getText()));
+				uitool.toos(context,"路径已复制到剪切板");
+			}
+		});
 	}
 	
 	public FileList listadp;

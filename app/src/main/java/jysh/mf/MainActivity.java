@@ -30,6 +30,12 @@ public class MainActivity extends Activity
 	@Override
 	public void onBackPressed()
 	{
+		if(uitool.mainDrawerOpen)
+		{
+			uitool.mainDrawer.closeDrawers();
+			uitool.mainDrawerOpen = false;
+			return;
+		}
 		int position = uitool.add.getPosition();
 		if(uitool.pagerAdapter.get(position).Backpressed())
 		{

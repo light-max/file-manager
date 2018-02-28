@@ -23,6 +23,7 @@ public class uitool
 	static public AddFileViewButton add;
 	static public MyDrawLayout drawlayout;
 	static public DrawerLayout mainDrawer;
+	static public boolean mainDrawerOpen;
 	static public PopSelect popselect;
 	
 	static public Progeress progerss;
@@ -89,6 +90,7 @@ public class uitool
 		@Override
 		public void onDrawerClosed(View p1)
 		{
+			mainDrawerOpen = false;
 		}
 
 		@Override
@@ -99,6 +101,7 @@ public class uitool
 		@Override
 		public void onDrawerOpened(View p1)
 		{
+			mainDrawerOpen = true;
 			drawlayout.Open();
 			drawlayout.select.notifyDataSetChanged();
 		}

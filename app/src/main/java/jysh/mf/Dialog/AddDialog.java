@@ -34,7 +34,6 @@ public class AddDialog extends Dialog implements View.OnClickListener
 		R.id.dialognew_newfile,
 		R.id.dialognew_newdri,
 		R.id.dialognew_drititle,
-		R.id.dialognew_classview,
 		R.id.dialognew_savetitle
 	};
 	private OnClick click;

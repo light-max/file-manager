@@ -32,6 +32,7 @@ public class Search extends Activity
 		path = (TextView)findViewById(R.id.activity_search_path);
 		number = (TextView)findViewById(R.id.activity_search_number);
 		select = (searchPopSelect)findViewById(R.id.activity_search_select);
+		select.setContext(this);
 	}
 
 	@Override
@@ -41,6 +42,10 @@ public class Search extends Activity
 		{
 			search.start_button = false;
 			search = null;
+		}
+		for(LayoutFileList f:uitool.pagerAdapter.view)
+		{
+			f.listadp.loadList();
 		}
 		super.onBackPressed();
 	}
@@ -230,6 +235,7 @@ public class Search extends Activity
 		public void updateUi()
 		{
 			view.notifyDataSetChanged();
+			context.number.setText("已找到"+view.data.size()+"个文件");
 		}
 		
 		public void initExpression_s()

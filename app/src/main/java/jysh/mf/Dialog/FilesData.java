@@ -2,11 +2,13 @@ package jysh.mf.Dialog;
 
 import android.app.*;
 import android.content.*;
-import jysh.mf.R;
 import android.view.*;
-import jysh.mf.Widget.*;
 import android.widget.*;
+import java.io.*;
+import java.util.*;
+import jysh.mf.*;
 import jysh.mf.Util.*;
+import jysh.mf.Widget.*;
 
 public class FilesData extends Dialog
 {
@@ -29,17 +31,28 @@ public class FilesData extends Dialog
 		size = (TextView)findViewById(R.id.dialog_filesdata_size);
 	}
 	
-	private SelectLayout files;
 	private TextView number,len,size;
 
 	public FilesData setFiles(SelectLayout files)
 	{
-		this.files = files;
 		number.setText("共有: "+files.data.size()+"个文件");
 		long len = 0;
 		for(SelectLayout.Data f:files.data)
 		{
 			len += f.getFp().length();
+		}
+		this.len.setText("长度: "+len);
+		size.setText("大小: "+filetool.getFileSize(len));
+		return this;
+	}
+	
+	public FilesData setFiles(List<File> fp)
+	{
+		number.setText("共有: "+fp.size()+"个文件");
+		long len = 0;
+		for(File f:fp)
+		{
+			len += f.length();
 		}
 		this.len.setText("长度: "+len);
 		size.setText("大小: "+filetool.getFileSize(len));

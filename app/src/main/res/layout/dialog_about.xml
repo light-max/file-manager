@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:gravity="center"
+	android:background="@drawable/radiusxx">
+
+	<TextView
+		android:layout_height="80dp"
+		android:layout_width="340dp"
+		android:text="File Manager"
+		android:textSize="34sp"
+		android:gravity="center"
+		android:textColor="#000000"
+		android:textStyle="bold"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="版本1.0"
+		android:textColor="#000000"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="jysh.zmrrj.com"
+		android:autoLink="web"
+		android:textColor="#00659F"/>
+
+	<TextView
+		android:layout_height="50dp"
+		android:layout_width="wrap_content"
+		android:text="开发作者：骄阳似火(3045033935)"
+		android:gravity="center"
+		android:textSize="16sp"
+		android:textStyle="italic"
+		android:textColor="#000000"/>
+
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="确 定"
+		android:padding="10dp"
+		android:textColor="#00659F"
+		android:background="@drawable/imagebutton"
+		android:layout_marginBottom="10dp"
+		android:layout_gravity="right"
+		android:layout_marginRight="20dp"
+		android:id="@+id/dialog_about_exit"/>
+
+</LinearLayout>
+

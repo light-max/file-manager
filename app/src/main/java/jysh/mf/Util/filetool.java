@@ -320,11 +320,11 @@ public class filetool
 			intent.setAction(android.content.Intent.ACTION_VIEW);
 			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 			intent.setDataAndType(Uri.fromFile(fp), "image/*");
-			uitool.mainThis.startActivity(intent);
+			context.startActivity(intent);
 		}
 		else
 		{
-			ShareFile(uitool.mainThis,fp);
+			ShareFile(context,fp);
 		}
 	}
 	
@@ -333,11 +333,11 @@ public class filetool
         Intent intent;
         intent=new Intent(Intent.ACTION_SEND); 
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT,  uitool.mainThis.toString()); 
+        intent.putExtra(Intent.EXTRA_SUBJECT,  context.toString()); 
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file) ); 
 		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file) ); 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-        context.startActivity(Intent.createChooser(intent, uitool.mainThis.toString()));
+        context.startActivity(Intent.createChooser(intent, "发送"));
         return true;	
     }
 }
