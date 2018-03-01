@@ -23,6 +23,7 @@ public class OperateFile extends Dialog implements View.OnClickListener
 		if(fp.isDirectory())
 		{
 			findViewById(id[1]).setVisibility(View.GONE);
+			findViewById(id[8]).setVisibility(View.GONE);
 		}
 		attribute = new OnClick(){
 			@Override
@@ -44,7 +45,7 @@ public class OperateFile extends Dialog implements View.OnClickListener
 			@Override
 			public void onClick()
 			{
-				
+				filetool.ShareFile(context,fp);
 			}
 		};
 		addbook = new OperateFile.OnClick(){

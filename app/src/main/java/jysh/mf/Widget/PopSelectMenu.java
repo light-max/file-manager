@@ -1,10 +1,12 @@
 package jysh.mf.Widget;
 
-import android.view.*;
-import android.widget.*;
-import jysh.mf.R;
 import android.content.*;
 import android.util.*;
+import android.view.*;
+import android.widget.*;
+import java.io.*;
+import java.util.*;
+import jysh.mf.*;
 import jysh.mf.Dialog.*;
 import jysh.mf.Util.*;
 
@@ -46,7 +48,13 @@ public class PopSelectMenu extends LinearLayout implements View.OnClickListener
 		}
 		else if(v.getId()==id[2])
 		{
-			
+			SelectLayout select = uitool.drawlayout.select;
+			List<File> fp = new ArrayList<>();
+			for(SelectLayout.Data d:select.data)
+			{
+				fp.add(d.getFp());
+			}
+			filetool.ShareFile(getContext(),fp);
 		}
 		pop.dismiss();
 	}

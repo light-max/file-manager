@@ -2,9 +2,11 @@ package jysh.mf.Dialog;
 
 import android.app.*;
 import android.content.*;
+import android.net.*;
 import android.view.*;
-import jysh.mf.*;
 import java.io.*;
+import jysh.mf.*;
+import jysh.mf.Util.*;
 
 public class OpenFileStyle extends Dialog implements View.OnClickListener
 {
@@ -36,6 +38,41 @@ public class OpenFileStyle extends Dialog implements View.OnClickListener
 	@Override
 	public void onClick(View v)
 	{
+		if(v.getId()==id[0])
+		{
+			
+		}
+		else if(v.getId()==id[1])
+		{
+			Intent intent = new Intent();
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+			intent.setDataAndType(Uri.fromFile(fp), "image/*");
+			getContext().startActivity(intent);
+		}
+		else if(v.getId()==id[2])
+		{
+			Intent intent = new Intent();
+			intent.setAction(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("file://"+fp.getPath()));
+			intent.setClassName("com.android.browser","com.android.browser.BrowserActivity");
+			getContext().startActivity(intent);
+		}
+		else if(v.getId()==id[3])
+		{
+			
+		}
+		else if(v.getId()==id[4])
+		{
+			Intent intent = new Intent();
+			intent.setAction(intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.fromFile(fp),"application/vnd.android.package-archive");
+			getContext().startActivity(intent);
+		}
+		else if(v.getId()==id[5])
+		{
+			filetool.fileAutoOpen(getContext(),fp);
+		}
 		dismiss();
 	}
 }

@@ -247,7 +247,7 @@ public class searchPopSelect extends LinearLayout
 				}
 				else if(v.getId()==id[2])
 				{
-					
+					filetool.ShareFile(context,fp);
 				}
 				pop.dismiss();
 			}
