@@ -24,16 +24,11 @@
 		android:layout_width="match_parent"
 		android:text="多选"
 		android:paddingLeft="15dp"
-		android:paddingTop="7dp"
+		android:paddingTop="15dp"
 		android:paddingBottom="7dp"
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_select"/>
-
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
 
 	<TextView
 		android:layout_height="wrap_content"
@@ -46,11 +41,6 @@
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_open"/>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
@@ -61,11 +51,6 @@
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_rename"/>
-
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
 
 	<TextView
 		android:layout_height="wrap_content"
@@ -78,11 +63,6 @@
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_delete"/>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
@@ -93,11 +73,6 @@
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_move"/>
-
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
 
 	<TextView
 		android:layout_height="wrap_content"
@@ -110,11 +85,6 @@
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_copy"/>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
@@ -125,11 +95,6 @@
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_addbook"/>
-
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
 
 	<TextView
 		android:layout_height="wrap_content"
@@ -142,11 +107,6 @@
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_zip"/>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
@@ -158,26 +118,16 @@
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_send"/>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-	
 	<TextView
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:text="属性"
 		android:paddingLeft="15dp"
 		android:paddingTop="7dp"
-		android:paddingBottom="7dp"
+		android:paddingBottom="15dp"
 		android:textSize="18sp"
 		android:background="@drawable/textbutton"
 		android:id="@+id/dialogopenfiledri_attribute"/>
-
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
 
 </LinearLayout>
 

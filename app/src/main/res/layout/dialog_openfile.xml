@@ -37,19 +37,14 @@
 		android:layout_height="3dp"
 		android:background="#00569F"/>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"
-		android:layout_marginTop="3dp"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:background="@drawable/textbutton"
 		android:gravity="center"
-		android:id="@+id/dialog_openfile_textlook">
+		android:id="@+id/dialog_openfile_textlook"
+		android:paddingLeft="10dp">
 
 		<ImageView
 			android:layout_height="40dp"
@@ -69,18 +64,14 @@
 
 	</LinearLayout>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:background="@drawable/textbutton"
 		android:gravity="center"
-		android:id="@+id/dialog_openfile_image">
+		android:id="@+id/dialog_openfile_image"
+		android:paddingLeft="10dp">
 
 		<ImageView
 			android:layout_height="40dp"
@@ -100,18 +91,14 @@
 
 	</LinearLayout>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:background="@drawable/textbutton"
 		android:gravity="center"
-		android:id="@+id/dialog_openfile_web">
+		android:id="@+id/dialog_openfile_web"
+		android:paddingLeft="10dp">
 
 		<ImageView
 			android:layout_height="40dp"
@@ -131,18 +118,14 @@
 
 	</LinearLayout>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:background="@drawable/textbutton"
 		android:gravity="center"
-		android:id="@+id/dialog_openfile_textedit">
+		android:id="@+id/dialog_openfile_textedit"
+		android:paddingLeft="10dp">
 
 		<ImageView
 			android:layout_height="40dp"
@@ -162,18 +145,14 @@
 
 	</LinearLayout>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:background="@drawable/textbutton"
 		android:gravity="center"
-		android:id="@+id/dialog_openfile_apk">
+		android:id="@+id/dialog_openfile_apk"
+		android:paddingLeft="10dp">
 
 		<ImageView
 			android:layout_height="40dp"
@@ -193,18 +172,14 @@
 
 	</LinearLayout>
 
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
 	<LinearLayout
 		android:layout_height="50dp"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
 		android:background="@drawable/textbutton"
 		android:gravity="center"
-		android:id="@+id/dialog_openfile_null">
+		android:id="@+id/dialog_openfile_null"
+		android:paddingLeft="10dp">
 
 		<ImageView
 			android:layout_height="40dp"
@@ -224,11 +199,6 @@
 			android:layout_weight="1.0"/>
 
 	</LinearLayout>
-
-	<View
-		android:background="?android:attr/dividerVertical"
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
 
 </LinearLayout>
 
