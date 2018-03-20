@@ -40,7 +40,11 @@ public class OpenFileStyle extends Dialog implements View.OnClickListener
 	{
 		if(v.getId()==id[0])
 		{
-			
+			Intent intent = new Intent();
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			intent.setData(Uri.fromFile(fp));
+			intent.setClassName("jysh.mf","jysh.mf.Activity.StaticText");
+			getContext().startActivity(intent);
 		}
 		else if(v.getId()==id[1])
 		{
