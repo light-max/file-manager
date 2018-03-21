@@ -36,14 +36,34 @@ public class StaticText extends Activity
 	
 	class ThreadAppendContent extends Thread
 	{
-		private FileInputStream in;
-
+		private FileReader in;
+		private StringBuilder str = new StringBuilder(1024*10);
 		@Override
 		public void run()
 		{
 			try
 			{
-				in = new FileInputStream(fp);
+				in = new FileReader(fp);
+				char byt[] = new char[1024];
+				int len = 0;
+				do{
+					try
+					{
+						len = in.read(byt);
+						str.append(byt,0,len);
+					}
+					catch (Exception e)
+					{}
+					if(str.length()>=1024*10)
+					{
+						Message msg = new Message();
+						msg.what = APPEND_TEXT;
+						msg.obj = str.toString();
+						updateUi.sendMessage(msg);
+						str = new StringBuilder(1024*10);
+					}
+				}
+				while(len != -1);
 			}
 			catch (FileNotFoundException e)
 			{
@@ -57,23 +77,14 @@ public class StaticText extends Activity
 				}
 				catch (IOException e)
 				{}
+				Message msg = new Message();
+				msg.arg1 = 1;
+				msg.what = APPEND_TEXT;
+				msg.obj = str.toString();
+				updateUi.sendMessage(msg);
 			}
-			byte byt[] = new byte[1024*1024];
-			int len = 0;
-			do{
-				try
-				{
-					len = in.read(byt);
-					Message msg = new Message();
-					msg.what = APPEND_TEXT;
-					msg.obj = new String(byt);
-					updateUi.sendMessage(msg);
-				}
-				catch (IOException e)
-				{}
-			}
-			while(len != -1);
 		}
+		
 	}
 	
 	private Handler updateUi = new Handler(){
@@ -84,6 +95,8 @@ public class StaticText extends Activity
 			{
 				case APPEND_TEXT:
 					content.append((String)msg.obj);
+					if(msg.arg1==1)
+						content.setTextIsSelectable(true);
 					break;
 			}
 		}

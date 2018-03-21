@@ -18,13 +18,30 @@
 			android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 		<activity android:name="jysh.mf.Activity.AppSet"></activity>
 		<activity android:name="jysh.mf.Activity.Search"></activity>
-		<activity android:name="jysh.mf.Activity.StaticText"></activity>
+		<activity
+			android:label="文本查看"
+			android:name="jysh.mf.Activity.StaticText">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"></action>
+				<category android:name="android.intent.category.DEFAULT"></category>
+				<data android:mimeType="text/plain"></data>
+			</intent-filter>
+		</activity>
+		<activity
+			android:label="文本编辑"
+			android:name="jysh.mf.Activity.mEdittext">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW"></action>
+				<category android:name="android.intent.category.DEFAULT"></category>
+				<data android:mimeType="text/plain"></data>
+			</intent-filter>
+		</activity>
+		<activity android:name="jysh.mf.Activity.ApplicationView"></activity>
     </application>
 
 </manifest>

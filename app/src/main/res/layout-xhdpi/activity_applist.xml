@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="#EFEFEF">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="#FFFFFF">
+
+		<ImageView
+			android:background="@drawable/imagebutton"
+			android:layout_height="40dp"
+			android:layout_width="40dp"
+			android:layout_gravity="center"
+			android:src="@drawable/ic_exit"
+			android:padding="5dp"
+			android:id="@+id/activity_applist_exit"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="选择应用程序"
+			android:textColor="#000000"
+			android:textSize="22sp"
+			android:padding="10dp"/>
+
+	</LinearLayout>
+
+	<View
+		android:background="?android:attr/dividerVertical"
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<CheckBox
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:hint="记住此类文件的打开方式"
+		android:textColor="#000000"/>
+
+	<ListView
+		android:layout_height="0dp"
+		android:layout_width="wrap_content"
+		android:id="@+id/activity_applist_applist"
+		android:divider="#B2B2B2"
+		android:dividerHeight="0.5dp"
+		android:layout_weight="1.0"/>
+
+</LinearLayout>
+

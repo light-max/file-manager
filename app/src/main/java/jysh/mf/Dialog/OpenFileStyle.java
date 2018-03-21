@@ -64,7 +64,11 @@ public class OpenFileStyle extends Dialog implements View.OnClickListener
 		}
 		else if(v.getId()==id[3])
 		{
-			
+			Intent intent = new Intent();
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			intent.setData(Uri.fromFile(fp));
+			intent.setClassName("jysh.mf","jysh.mf.Activity.mEdittext");
+			getContext().startActivity(intent);
 		}
 		else if(v.getId()==id[4])
 		{
@@ -75,7 +79,11 @@ public class OpenFileStyle extends Dialog implements View.OnClickListener
 		}
 		else if(v.getId()==id[5])
 		{
-			filetool.fileAutoOpen(getContext(),fp);
+		//	filetool.fileAutoOpen(getContext(),fp);
+			Intent intent = new Intent();
+			intent.setData(Uri.fromFile(fp));
+			intent.setClassName("jysh.mf","jysh.mf.Activity.ApplicationView");
+			getContext().startActivity(intent);
 		}
 		dismiss();
 	}

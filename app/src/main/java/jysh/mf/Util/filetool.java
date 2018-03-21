@@ -324,7 +324,11 @@ public class filetool
 		}
 		else
 		{
-			fileAutoOpen(context,fp);
+		//	fileAutoOpen(context,fp);
+			Intent intent = new Intent();
+			intent.setData(Uri.fromFile(fp));
+			intent.setClassName("jysh.mf","jysh.mf.Activity.ApplicationView");
+			context.startActivity(intent);
 		}
 	}
 	
