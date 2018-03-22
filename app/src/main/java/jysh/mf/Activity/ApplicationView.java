@@ -10,6 +10,8 @@ import android.view.*;
 import android.widget.*;
 import java.util.*;
 import jysh.mf.*;
+import android.content.pm.PackageManager.*;
+import jysh.mf.Util.*;
 
 public class ApplicationView extends Activity
 {
@@ -18,16 +20,24 @@ public class ApplicationView extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.activity_applist);
+		uitool.toos(this,"这个不会做，不干了");
 		list = new ApplicationList
 		(
 			this,
 			(ListView)findViewById(R.id.activity_applist_applist),
 			new ArrayList<ApplicationList.Data>()
-		);
+		){
+			@Override
+			public void onClick(ApplicationList.Data data)
+			{
+				clickActivity(data);
+			}
+		};
 		thread = new loadApplicationItemThread();
 		thread.start();
+		check = (CheckBox)findViewById(R.id.activity_applist_check);
 	}
-
+	
 	@Override
 	public void onBackPressed()
 	{
@@ -35,9 +45,22 @@ public class ApplicationView extends Activity
 		super.onBackPressed();
 	}
 	
+	private void clickActivity(ApplicationList.Data data)
+	{
+		onClickCheckBox(data);
+		finish();
+	}
+	
+	private void onClickCheckBox(ApplicationList.Data data)
+	{
+		if(!check.isChecked())
+			return;
+	}
+	
 	private ApplicationList list;
 	private loadApplicationItemThread thread;
 	private final int ADD_APPITEM = 0;
+	private CheckBox check;
 	
 	private Handler updateUi = new Handler(){
 		@Override
@@ -60,8 +83,8 @@ public class ApplicationView extends Activity
 		@Override
 		public void run()
 		{
-			PackageManager pm = getPackageManager();
-			List<PackageInfo> Package = pm.getInstalledPackages(0);
+		/*	PackageManager pm = getPackageManager();
+			List<PackageInfo> Package = pm.getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
 			for(PackageInfo f:Package)
 			{
 				if(isExit)
@@ -71,9 +94,37 @@ public class ApplicationView extends Activity
 				Drawable icon = f.applicationInfo.loadIcon(pm);
 				data.add(new ApplicationList.Data(package_,name,"",icon));
 				updateItemUi();
-			//	f.applicationInfo.CREATOR
 				
+				ActivityInfo array[] = f.activities;
+			//	Log.e("length",array.length+"");
+			}*/
+			
+			// 获取PackageManager对象
+			PackageManager pm = getPackageManager();
+			// 设置<intent-filter>标签内需要满足的条件
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			//intent.addCategory(Intent.CATEGORY_DEFAULT);
+
+			// 通过queryIntentActivities获取ResolveInfo对象
+			List<ResolveInfo> resolveInfos = pm.queryIntentActivities(intent,
+																	  0);
+
+			// 调用系统排序，根据name排序
+			// 该排序很重要，否则只能显示系统应用，不能显示第三方应用
+			// 其实我测试发现有没有其实是一样的，就是输出的顺序是乱的
+			Collections.sort(resolveInfos,
+							 new ResolveInfo.DisplayNameComparator(pm));
+
+			for (ResolveInfo resolveInfo : resolveInfos) {
+				String appName = resolveInfo.loadLabel(pm).toString();// 获取应用名称
+				String packageName = resolveInfo.activityInfo.packageName;// 包名
+				String className = resolveInfo.activityInfo.name;// 入口类名
+				System.out.println("程序名：" + appName + " 包名:" + packageName
+								   + " 入口类名：" + className);
+				data.add(new ApplicationList.Data("",appName,"",resolveInfo.loadIcon(pm)));
+				updateItemUi();
 			}
+			
 			updateItemUiEnd();
 		}
 		
@@ -133,6 +184,10 @@ class ApplicationList extends ArrayAdapter<ApplicationList.Data>
 		icon.setImageDrawable(d.getIcon());
 		
 		return v;
+	}
+	
+	public void onClick(Data d)
+	{
 	}
 	
 	public static class Data
